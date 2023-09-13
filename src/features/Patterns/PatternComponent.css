@@ -1,0 +1,12 @@
+/* PatternComponent.css */
+.left-aligned-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .pattern-item {
+    margin: 20px;
+    text-align: left;
+  }
+  
