@@ -5,4 +5,3 @@ export interface AppliedPattern {
     patternNativeText: string;
     patternNote?: string;
 }
-  

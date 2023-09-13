@@ -1,34 +1,33 @@
-import React from 'react';
-import { Typography } from '@mui/material';
-import { SampleSentence } from '../../types/SampleSentenceTypes';
+import React from "react";
+import { Typography } from "@mui/material";
+import { SampleSentence } from "../../types/SampleSentenceTypes";
 
 interface SampleSentencesComponentProps {
-  sampleSentences?: SampleSentence[]; // Make it optional
+    sampleSentences?: SampleSentence[];
 }
 
-const SampleSentencesComponent: React.FC<SampleSentencesComponentProps> = ({ sampleSentences }) => {
-  if (!sampleSentences || sampleSentences.length === 0) {
-    // Handle the case when sampleSentences is undefined or empty
-    return null;
-  }
+const SampleSentencesComponent: React.FC<SampleSentencesComponentProps> = ({
+    sampleSentences,
+}) => {
+    if (!sampleSentences || sampleSentences.length === 0) {
+        return null;
+    }
 
-  return (
-    <div>
-      <Typography variant="h6" gutterBottom>
-        Sample Sentences
-      </Typography>
-      {sampleSentences.map((sentence, index) => (
-        <div key={index}>
-          <Typography>
-            {sentence.targetText}
-          </Typography>
-          <Typography color="textSecondary">
-            {sentence.nativeText}
-          </Typography>
+    return (
+        <div>
+            <Typography variant="h6" gutterBottom>
+                Sample Sentences
+            </Typography>
+            {sampleSentences.map((sentence, index) => (
+                <div key={index}>
+                    <Typography>{sentence.targetText}</Typography>
+                    <Typography color="textSecondary">
+                        {sentence.nativeText}
+                    </Typography>
+                </div>
+            ))}
         </div>
-      ))}
-    </div>
-  );
+    );
 };
 
 export default SampleSentencesComponent;

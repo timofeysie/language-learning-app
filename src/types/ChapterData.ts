@@ -18,5 +18,4 @@ export type ChapterData = {
     vocabulary: WordOrPhrase[];
     patterns: Pattern[];
     appliedPatterns: AppliedPattern[];
-  }
-  
+};

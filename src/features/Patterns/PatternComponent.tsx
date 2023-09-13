@@ -3,8 +3,7 @@ import { Typography } from "@mui/material";
 import { Pattern } from "../../types/PatternTypes";
 import SampleSentencesComponent from "./SampleSentencesComponent";
 import ExercisesComponent from "../Exercises/ExerciseComponent";
-
-import "./PatternComponent.css"; // Import the CSS file
+import "./PatternComponent.css";
 
 interface PatternComponentProps {
     patterns: Pattern[];

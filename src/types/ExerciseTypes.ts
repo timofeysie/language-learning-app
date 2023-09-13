@@ -3,4 +3,3 @@ export interface Exercise {
     exercise: string;
     answerKey: string;
 }
-  

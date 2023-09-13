@@ -3,4 +3,3 @@ export interface WordOrPhrase {
     targetLanguageText: string;
     nativeLanguageText: string;
 }
-  

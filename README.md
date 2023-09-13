@@ -1,5 +1,6 @@
 # Language learning app
 
+A language learning app written in React using TypeScript scaffolded with Vite.
 
 ## Workflow
 
@@ -14,6 +15,7 @@ npm run dev
 npm create vite@latest
 npm install @mui/material @mui/icons-material
 npm install @emotion/styled
+npm install react-router-dom
 ```
 
 The directory structure:
@@ -36,6 +38,27 @@ my-language-learning-app/
 ├── ...
 ```
 
+## Chapters
+
+```js
+{
+    unid: <unique-id>,
+    encoding: "utf-8",
+    nativeLanguageTitle: "En",
+    targetLanguageTitle: "Ko",
+    nativeLanguageEncoding: "",
+    targetLanguageEncoding: "euc-kr",
+    chapter: "328",
+    dialogue: "Real-Life Korean Conversations: Intermediate",
+    titleTarget: "그냥 몸이 좀 안 좋네.",
+    titleNative: "I just don’t feel well.",
+    dialog: { ... }
+    vocabulary
+    patterns
+    exercises
+    appliedPatterns
+}
+```
 
 ## React + TypeScript + Vite
 
