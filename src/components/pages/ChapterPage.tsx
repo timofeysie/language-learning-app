@@ -14,7 +14,10 @@ const ChapterPage: React.FC = () => {
 
     useEffect(() => {
         if (filename && filename in chapterMapping) {
-            const dataUrl = `/src/components/data/${chapterMapping[filename]}`;
+            const dataUrl =
+                process.env.VITE_APP_ENV === "development"
+                    ? `/src/components/data/${chapterMapping[filename]}`
+                    : `../../data/${chapterMapping[filename]}`;
             fetch(dataUrl)
                 .then((response) => {
                     if (!response.ok) {
