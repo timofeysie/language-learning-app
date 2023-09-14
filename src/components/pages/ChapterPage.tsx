@@ -14,12 +14,7 @@ const ChapterPage: React.FC = () => {
 
     useEffect(() => {
         if (filename && filename in chapterMapping) {
-            const dataUrl =
-            import.meta.env.VITE_APP_ENV === "development"
-                    ? `/src/components/data/${chapterMapping[filename]}`
-                    :  `${import.meta.env.BASE_URL}/src/components/data/${chapterMapping[filename]}`;
-                console.log('dataUrl', dataUrl);
-            console.log('dataUrl', dataUrl)
+            const dataUrl = `/${chapterMapping[filename]}`;
             fetch(dataUrl)
                 .then((response) => {
                     if (!response.ok) {
