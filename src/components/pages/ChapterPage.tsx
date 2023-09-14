@@ -17,7 +17,7 @@ const ChapterPage: React.FC = () => {
             const dataUrl =
                 process.env.VITE_APP_ENV === "development"
                     ? `/src/components/data/${chapterMapping[filename]}`
-                    : `../../data/${chapterMapping[filename]}`;
+                    : `../data/${chapterMapping[filename]}`;
             fetch(dataUrl)
                 .then((response) => {
                     if (!response.ok) {
