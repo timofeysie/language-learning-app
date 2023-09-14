@@ -18,7 +18,7 @@ const ChapterPage: React.FC = () => {
             const dataUrl =
             import.meta.env.VITE_APP_ENV === "development"
                     ? `/src/components/data/${chapterMapping[filename]}`
-                    :  path.join(process.cwd(), `/src/components/data/${chapterMapping[filename]}`);
+                    :  path.join(import.meta.env.BASE_URL, `/src/components/data/${chapterMapping[filename]}`);
                 console.log('dataUrl', dataUrl);
             console.log('dataUrl', dataUrl)
             fetch(dataUrl)
