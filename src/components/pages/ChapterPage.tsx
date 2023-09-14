@@ -6,6 +6,7 @@ import VocabularyComponent from "../../features/Vocabulary/VocabularyComponent";
 import PatternComponent from "../../features/Patterns/PatternComponent";
 import { ChapterData } from "../../types/ChapterData";
 import { Link } from "react-router-dom";
+import path from 'path';
 
 const ChapterPage: React.FC = () => {
     const { filename } = useParams();
@@ -17,7 +18,9 @@ const ChapterPage: React.FC = () => {
             const dataUrl =
                 process.env.VITE_APP_ENV === "development"
                     ? `/src/components/data/${chapterMapping[filename]}`
-                    : `../data/${chapterMapping[filename]}`;
+                    :  path.join(process.cwd(), `/src/components/data/${chapterMapping[filename]}`);
+                console.log('dataUrl', dataUrl);
+            console.log('dataUrl', dataUrl)
             fetch(dataUrl)
                 .then((response) => {
                     if (!response.ok) {
