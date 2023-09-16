@@ -23,7 +23,7 @@ const ExerciseComponent: React.FC<ExerciseComponentProps> = ({ exercises }) => {
                 <Accordion key={exercise.id}>
                     <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                         <Typography variant="h4">
-                            {exercise.id}. {exercise.exercise}
+                            {exercise.id + 1}. {exercise.exercise}
                         </Typography>
                     </AccordionSummary>
                     <AccordionDetails>

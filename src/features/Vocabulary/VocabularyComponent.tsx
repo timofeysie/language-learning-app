@@ -28,7 +28,7 @@ const VocabularyComponent: React.FC<VocabularyComponentProps> = ({
 
             <Grid container spacing={2}>
                 {vocabulary.map((word) => (
-                    <Grid item key={word.id} xs={12} sm={6} md={4} lg={3}>
+                    <Grid item key={word.id} xs={12} sm={8} md={7} lg={6}>
                         <div
                             className={`word-container ${
                                 expandedWord === word.id ? "expanded" : ""

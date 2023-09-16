@@ -167,7 +167,7 @@
         },
         {
             "id": 357,
-            "targetLanguageText": "to be cumbersome, to be inconvenient",
+            "targetLanguageText": "to be cumbersome, inconvenient",
             "nativeLanguageText": "번거롭다"
         },
         {
@@ -182,7 +182,7 @@
         },
         {
             "id": 360,
-            "targetLanguageText": "to drop someone off (honorific), to stop the car for someone (honorific)",
+            "targetLanguageText": "to drop someone off/stop the car (honorific)",
             "nativeLanguageText": "세워 드리다"
         },
         {
@@ -212,12 +212,12 @@
         },
         {
             "id": 366,
-            "targetLanguageText": "to take a detour, to turn around and go",
+            "targetLanguageText": "to take a detour, turn around and go",
             "nativeLanguageText": "돌아서 가다"
         },
         {
             "id": 367,
-            "targetLanguageText": "someone's house, someone's place (honorific)",
+            "targetLanguageText": "someone's house/place (honorific)",
             "nativeLanguageText": "댁"
         },
         {
