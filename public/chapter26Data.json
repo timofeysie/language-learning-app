@@ -307,7 +307,8 @@
         },
         {
             "id": 1,
-            "patternTarget": "VERB + -(으)면 VERB + -(으)ㄹ 거예요 formal",
+            "type": "formal",
+            "patternTarget": "VERB + -(으)면 VERB + -(으)ㄹ 거예요",
             "patternNative": "After..., you will VERB. / If..., you will VERB.",
             "exampleSentenceNativeTitle": "Sentence Used in the Dialogue",
             "exampleSentenceTarget": "주사 맞으면 좀 괜찮아질 거예요.",
@@ -341,7 +342,8 @@
         },
         {
             "id": 2,
-            "patternTarget": "더 VERB + -아/어/여야 돼요 formal",
+            "type": "formal",
+            "patternTarget": "더 VERB + -아/어/여야 돼요",
             "patternNative": "You need to VERB more.",
             "exampleSentenceNativeTitle": "Sentence Used in the Dialogue",
             "exampleSentenceTarget": "더 내리셔야 돼요.",

@@ -55,15 +55,15 @@ const ChapterPage: React.FC = () => {
     return (
         <div>
             <Typography variant="h1">{chapterData.dialogue}</Typography>
-            <Typography variant="h1">{chapterData.chapter}</Typography>
-            <Typography variant="h1">{chapterData.titleTarget}</Typography>
-            <Typography variant="h1">{chapterData.titleNative}</Typography>
+            <Typography variant="h2">Chapter {chapterData.chapter}</Typography>
+            <Typography variant="h3">{chapterData.titleTarget}</Typography>
+            <Typography variant="h4">{chapterData.titleNative}</Typography>
 
             <DialogComponent dialog={chapterData.dialog} />
-            <VocabularyComponent vocabulary={chapterData.vocabulary} />
+            {chapterData?.vocabulary && (
+                <VocabularyComponent vocabulary={chapterData.vocabulary} />
+            )}
             <PatternComponent patterns={chapterData.patterns} />
-            {/* <ExercisesComponent exercisesData={chapterData.exercises} />
-            <AppliedPatternsComponent appliedPatternsData={chapterData.appliedPatterns} /> */}
         </div>
     );
 };

@@ -15,7 +15,7 @@ const SampleSentencesComponent: React.FC<SampleSentencesComponentProps> = ({
 
     return (
         <div>
-            <Typography variant="h6" gutterBottom>
+            <Typography variant="h5" mt={3} gutterBottom>
                 Sample Sentences
             </Typography>
             {sampleSentences.map((sentence, index) => (

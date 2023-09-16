@@ -15,7 +15,7 @@ interface ExerciseComponentProps {
 const ExerciseComponent: React.FC<ExerciseComponentProps> = ({ exercises }) => {
     return (
         <div>
-            <Typography variant="h3" gutterBottom>
+            <Typography variant="h3" mt={3} gutterBottom>
                 Exercises
             </Typography>
 

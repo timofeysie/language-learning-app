@@ -1,6 +1,11 @@
 import React from "react";
 import { Dialog as DialogType } from "../../types/DialogTypes";
-import { Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
+import {
+    Accordion,
+    Typography,
+    AccordionSummary,
+    AccordionDetails,
+} from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import "./DialogComponent.css";
 
@@ -19,20 +24,28 @@ const DialogComponent: React.FC<DialogProps> = ({ dialog }) => {
                     >
                         <div className="name-speech-row">
                             <div className="speaker-label">
-                                {dialogItem.speakerNameTarget}:
+                                <Typography variant="subtitle1">
+                                    {dialogItem.speakerNameTarget}:
+                                </Typography>
                             </div>
                             <div className="speech">
-                                {dialogItem.speechTarget}
+                                <Typography variant="h5">
+                                    {dialogItem.speechTarget}
+                                </Typography>
                             </div>
                         </div>
                     </AccordionSummary>
                     <AccordionDetails>
                         <div className="name-speech-row">
                             <div className="speaker-label">
+                            <Typography variant="subtitle1">
                                 {dialogItem.speakerNameNative}:
+                                </Typography>
                             </div>
                             <div className="speech">
+                            <Typography variant="h6">
                                 {dialogItem.speechNative}
+                                </Typography>
                             </div>
                         </div>
                     </AccordionDetails>

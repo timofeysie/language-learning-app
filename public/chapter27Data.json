@@ -5,7 +5,7 @@
     "targetLanguageTitle": "Ko",
     "nativeLanguageEncoding": "",
     "targetLanguageEncoding": "euc-kr",
-    "chapter": "28",
+    "chapter": "27",
     "dialogue": "Real-Life Korean Conversations: Intermediate",
     "titleTarget": "그냥 몸이 좀 안 좋네.",
     "titleNative": "I just don’t feel well.",
@@ -308,7 +308,8 @@
         },
         {
             "id": 1,
-            "patternTarget": "VERB + -(으)면 안 돼 casual",
+            "type": "casual",
+            "patternTarget": "VERB + -(으)면 안 돼",
             "patternNative": "I can’t VERB. / I shouldn’t VERB.",
             "exampleSentenceNativeTitle": "Sentence Used in the Dialogue",
             "exampleSentenceTarget": "오늘 수업 빠지면 안 돼.",
@@ -328,7 +329,8 @@
             "appliedPatterns": [
                 {
                     "id": 2,
-                    "pattern": "VERB + -(으)면 안 돼요 formal",
+                    "type": "formal",
+                    "pattern": "VERB + -(으)면 안 돼요",
                     "patternTargetText": "오늘 수업 빠지면 안 돼요.",
                     "patternNativeText": "I can’t skip classes today."
                 }
@@ -336,7 +338,8 @@
         },
         {
             "id": 2,
-            "patternTarget": "금방 VERB + -(으)ㄹ 것 같아 casual",
+            "type": "casual",
+            "patternTarget": "금방 VERB + -(으)ㄹ 것 같아",
             "patternNative": "It looks like (SUBJECT) is about to VERB.",
             "exampleSentenceNativeTitle": "Sentence Used in the Dialogue",
             "exampleSentenceTarget": "금방 쓰러질 것 같아.",
