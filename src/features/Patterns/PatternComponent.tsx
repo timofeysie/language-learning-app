@@ -52,7 +52,7 @@ const PatternComponent: React.FC<PatternComponentProps> = ({ patterns }) => {
                             sampleSentences={pattern.sampleSentences}
                         />
                         {pattern?.exercises && (
-                            <ExercisesComponent mt={3} exercises={pattern.exercises} />
+                            <ExercisesComponent exercises={pattern.exercises} />
                         )}
                         <Typography variant="h3" gutterBottom mt={3}>
                             Applied Patterns
