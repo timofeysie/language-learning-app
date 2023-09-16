@@ -15,16 +15,16 @@ const PatternComponent: React.FC<PatternComponentProps> = ({ patterns }) => {
             <div className="left-aligned-container">
                 {patterns.map((pattern) => (
                     <div key={pattern.id} className="pattern-item">
-                        <Typography variant="h4" gutterBottom mt={2}>
+                        <Typography variant="h2" gutterBottom mt={2}>
                             Pattern {pattern.id + 1}
                         </Typography>
-                        <Typography variant="h5" gutterBottom>
+                        <Typography variant="h3" gutterBottom>
                             {pattern.patternTarget}
                         </Typography>
                         <Typography variant="body1" color="textSecondary">
                             {pattern.patternNative}
                         </Typography>
-                        <Typography variant="h6" gutterBottom>
+                        <Typography variant="h4" gutterBottom>
                             {pattern.exampleSentenceNativeTitle}
                         </Typography>
                         <Typography variant="body1">
@@ -36,7 +36,7 @@ const PatternComponent: React.FC<PatternComponentProps> = ({ patterns }) => {
                         <SampleSentencesComponent
                             sampleSentences={pattern.sampleSentences}
                         />
-                        <ExercisesComponent exercises={pattern.exercises} />
+                        { pattern?.exercises && <ExercisesComponent exercises={pattern.exercises} /> }
                     </div>
                 ))}
             </div>

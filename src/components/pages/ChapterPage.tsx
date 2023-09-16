@@ -6,6 +6,7 @@ import VocabularyComponent from "../../features/Vocabulary/VocabularyComponent";
 import PatternComponent from "../../features/Patterns/PatternComponent";
 import { ChapterData } from "../../types/ChapterData";
 import { Link } from "react-router-dom";
+import { Typography } from "@mui/material";
 
 const ChapterPage: React.FC = () => {
     const { filename } = useParams();
@@ -13,26 +14,34 @@ const ChapterPage: React.FC = () => {
     const [chapterData, setChapterData] = useState<ChapterData | null>(null); // Use an appropriate type for your data
 
     useEffect(() => {
-        if (filename && filename in chapterMapping) {
-            const dataUrl = `/${chapterMapping[filename]}`;
-            fetch(dataUrl)
-                .then((response) => {
-                    if (!response.ok) {
-                        throw new Error(`Failed to fetch data for ${filename}`);
-                    }
-                    return response.json();
-                })
-                .then((data) => {
-                    setChapterData(data);
-                })
-                .catch((error) => {
-                    console.error(
-                        `Error loading chapter data for ${filename}:`,
-                        error
-                    );
-                });
+        if (filename) {
+            const chapterInfo = chapterMapping.find(
+                (info) => info.link === filename
+            );
+
+            if (chapterInfo) {
+                const dataUrl = `/${chapterInfo.file}`;
+                fetch(dataUrl)
+                    .then((response) => {
+                        if (!response.ok) {
+                            throw new Error(
+                                `Failed to fetch data for ${filename}`
+                            );
+                        }
+                        return response.json();
+                    })
+                    .then((data) => {
+                        setChapterData(data);
+                    })
+                    .catch((error) => {
+                        console.error(
+                            `Error loading chapter data for ${filename}:`,
+                            error
+                        );
+                    });
+            }
         }
-    }, [filename]);
+    }, [filename, chapterMapping]);
 
     if (!chapterData) {
         return (
@@ -45,10 +54,10 @@ const ChapterPage: React.FC = () => {
 
     return (
         <div>
-            <h1>{chapterData.dialogue}</h1>
-            <h2>{chapterData.chapter}</h2>
-            <h3>{chapterData.titleTarget}</h3>
-            <h3>{chapterData.titleNative}</h3>
+            <Typography variant="h1">{chapterData.dialogue}</Typography>
+            <Typography variant="h1">{chapterData.chapter}</Typography>
+            <Typography variant="h1">{chapterData.titleTarget}</Typography>
+            <Typography variant="h1">{chapterData.titleNative}</Typography>
 
             <DialogComponent dialog={chapterData.dialog} />
             <VocabularyComponent vocabulary={chapterData.vocabulary} />

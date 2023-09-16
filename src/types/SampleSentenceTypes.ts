@@ -1,4 +1,4 @@
-export interface SampleSentence {
+export type SampleSentence = {
     targetText: string;
     nativeText: string;
-}
+};

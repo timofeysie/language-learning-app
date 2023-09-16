@@ -1,5 +1,5 @@
 {
-    "unid": "<unique-id>",
+    "unid": "27",
     "encoding": "utf-8",
     "nativeLanguageTitle": "En",
     "targetLanguageTitle": "Ko",
@@ -288,6 +288,22 @@
                     "exercise": "It’s getting bigger and bigger. (to be bigger = 더 크다)",
                     "answerKey": "계속 더 커지네."
                 }
+            ],
+            "appliedPatterns": [
+                {
+                    "id": 0,
+                    "pattern": "계속 ADJECTIVE + -아/어/여지네",
+                    "patternTargetText": "계속 심해지네.",
+                    "patternNativeText": "It’s getting worse and worse.",
+                    "patternNote": "Even without the word 더, which means “more”, the sentence will have the same meaning here."
+                },
+                {
+                    "id": 1,
+                    "pattern": "계속 더 ADJECTIVE + -아/어/여져",
+                    "patternTargetText": "계속 더 심해져.",
+                    "patternNativeText": "It’s getting worse and worse.",
+                    "patternNote": "-져 is a more neutral ending than -지네, which shows one’s observation."
+                }
             ]
         },
         {
@@ -307,6 +323,14 @@
                     "id": 2,
                     "exercise": "I shouldn’t exercise today. (to exercise = 운동하다, today = 오늘)",
                     "answerKey": "나 오늘 운동하면 안 돼."
+                }
+            ],
+            "appliedPatterns": [
+                {
+                    "id": 2,
+                    "pattern": "VERB + -(으)면 안 돼요 formal",
+                    "patternTargetText": "오늘 수업 빠지면 안 돼요.",
+                    "patternNativeText": "I can’t skip classes today."
                 }
             ]
         },
@@ -328,42 +352,22 @@
                     "exercise": "It looks like they’re about to depart. (to depart = 출발하다)",
                     "answerKey": "금방 출발할 것 같아."
                 }
+            ],
+            "appliedPatterns": [
+                {
+                    "id": 3,
+                    "pattern": "막 VERB + -(으)ㄹ 것 같아",
+                    "patternTargetText": "막 쓰러질 것 같아.",
+                    "patternNativeText": "It looks like you’re about to faint.",
+                    "patternNote": "Even though 막 can mean many things, in this context it means “soon” or “anytime now”."
+                },
+                {
+                    "id": 4,
+                    "pattern": "곧 VERB + -(으)ㄹ 것 같아",
+                    "patternTargetText": "곧 쓰러질 것 같아.",
+                    "patternNativeText": "It looks like you will faint soon."
+                }
             ]
-        }
-    ],
-    "appliedPatterns": [
-        {
-            "id": 0,
-            "pattern": "계속 ADJECTIVE + -아/어/여지네",
-            "patternTargetText": "계속 심해지네.",
-            "patternNativeText": "It’s getting worse and worse.",
-            "patternNote": "Even without the word 더, which means “more”, the sentence will have the same meaning here."
-        },
-        {
-            "id": 1,
-            "pattern": "계속 더 ADJECTIVE + -아/어/여져",
-            "patternTargetText": "계속 더 심해져.",
-            "patternNativeText": "It’s getting worse and worse.",
-            "patternNote": "-져 is a more neutral ending than -지네, which shows one’s observation."
-        },
-        {
-            "id": 2,
-            "pattern": "VERB + -(으)면 안 돼요 formal",
-            "patternTargetText": "오늘 수업 빠지면 안 돼요.",
-            "patternNativeText": "I can’t skip classes today."
-        },
-        {
-            "id": 3,
-            "pattern": "막 VERB + -(으)ㄹ 것 같아",
-            "patternTargetText": "막 쓰러질 것 같아.",
-            "patternNativeText": "It looks like you’re about to faint.",
-            "patternNote": "Even though 막 can mean many things, in this context it means “soon” or “anytime now”."
-        },
-        {
-            "id": 4,
-            "pattern": "곧 VERB + -(으)ㄹ 것 같아",
-            "patternTargetText": "곧 쓰러질 것 같아.",
-            "patternNativeText": "It looks like you will faint soon."
         }
     ]
 }

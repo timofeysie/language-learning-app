@@ -1,7 +1,6 @@
 import { Dialog } from "./DialogTypes";
 import { WordOrPhrase } from "./WordOrPhraseTypes";
 import { Pattern } from "./PatternTypes";
-import { AppliedPattern } from "./AppliedPatternTypes";
 
 export type ChapterData = {
     unid: string;
@@ -17,5 +16,4 @@ export type ChapterData = {
     dialog: Dialog[];
     vocabulary: WordOrPhrase[];
     patterns: Pattern[];
-    appliedPatterns: AppliedPattern[];
 };

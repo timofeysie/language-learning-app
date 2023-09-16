@@ -35,6 +35,9 @@ my-language-learning-app/
 |   ├── App.tsx
 |   ├── index.tsx
 ├── public/
+|   |   ├── chapter1Data.json
+|   |   ├── chapter2Data.json
+|   |   └── ...
 ├── ...
 ```
 

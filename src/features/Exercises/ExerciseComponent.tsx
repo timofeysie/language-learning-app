@@ -15,14 +15,14 @@ interface ExerciseComponentProps {
 const ExerciseComponent: React.FC<ExerciseComponentProps> = ({ exercises }) => {
     return (
         <div>
-            <Typography variant="h4" gutterBottom>
+            <Typography variant="h3" gutterBottom>
                 Exercises
             </Typography>
 
             {exercises.map((exercise) => (
                 <Accordion key={exercise.id}>
                     <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                        <Typography variant="h6">
+                        <Typography variant="h4">
                             {exercise.id}. {exercise.exercise}
                         </Typography>
                     </AccordionSummary>

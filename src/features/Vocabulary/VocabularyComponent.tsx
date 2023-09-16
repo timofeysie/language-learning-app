@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { Grid, Typography, Collapse } from "@mui/material";
 import { WordOrPhrase } from "../../types/WordOrPhraseTypes";
 import "./VocabularyComponent.css";
@@ -22,14 +22,18 @@ const VocabularyComponent: React.FC<VocabularyComponentProps> = ({
 
     return (
         <div>
-            <Typography variant="h4" gutterBottom>
+            <Typography variant="h3" gutterBottom>
                 Vocabulary
             </Typography>
 
             <Grid container spacing={2}>
                 {vocabulary.map((word) => (
                     <Grid item key={word.id} xs={12} sm={6} md={4} lg={3}>
-                        <div className={`word-container ${expandedWord === word.id ? 'expanded' : ''}`}>
+                        <div
+                            className={`word-container ${
+                                expandedWord === word.id ? "expanded" : ""
+                            }`}
+                        >
                             <Typography
                                 variant="subtitle1"
                                 gutterBottom
@@ -38,7 +42,9 @@ const VocabularyComponent: React.FC<VocabularyComponentProps> = ({
                                 {word.targetLanguageText}
                             </Typography>
                             <Collapse in={expandedWord === word.id}>
-                                <Typography mb={1} ml={1}
+                                <Typography
+                                    mb={1}
+                                    ml={1}
                                     variant="body1"
                                     color="textSecondary"
                                 >

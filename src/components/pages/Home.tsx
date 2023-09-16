@@ -1,20 +1,21 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { Typography } from "@mui/material";
+import chapterMapping from "../data/chapterMapping"; // Import the modified chapter mapping
 
 const Home: React.FC = () => {
-    return (
-        <div>
-            <h1>Chapter List</h1>
-            <ul>
-                <li>
-                    <Link to="/chapter/chapter26">Chapter 26</Link>
-                </li>
-                <li>
-                    <Link to="/chapter/chapter27">Chapter 27</Link>
-                </li>
-            </ul>
-        </div>
-    );
+  return (
+    <div>
+      <Typography variant="h1">Chapter List</Typography>
+      <ul>
+        {chapterMapping.map((chapter) => (
+          <li key={chapter.link}>
+            <Link to={`/chapter/${chapter.link}`}>{chapter.title}</Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
 };
 
 export default Home;
