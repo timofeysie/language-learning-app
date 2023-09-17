@@ -13,7 +13,7 @@
 }
 
 .word-container.expanded {
-    max-width: 1000px; /* Adjust max-width for the sliding effect */
+    max-width: 1000px;
 }
 
 .arrow-button {

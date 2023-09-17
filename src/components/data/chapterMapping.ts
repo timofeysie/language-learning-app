@@ -8,4 +8,6 @@ const chapterMapping: ChapterMappingInfo[] = [
     { title: "Chapter 30", link: "chapter30", file: "chapter30Data.json" },
 ];
 
+export const bookTitle = "Real-Life Korean Conversations: Intermediate";
+
 export default chapterMapping;
