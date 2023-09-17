@@ -55,7 +55,8 @@ const ChapterPage: React.FC = () => {
 
     const [tabValue, setTabValue] = useState(1);
 
-    const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
+    /* tslint:disable:no-unused-variable */
+    const handleTabChange = (_event: React.SyntheticEvent, newValue: number) => {
         setTabValue(newValue);
     };
 
