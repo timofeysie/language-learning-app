@@ -1,0 +1,22 @@
+.icon-span {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+.icon-svg {
+    width: 24px;
+    height: 24px;
+    fill: currentColor;
+}
+
+.selected-icon {
+    fill: #1976d2;
+}
+
+.selected-icon-button {
+    border-radius: 4px; /* Set the border radius to make it a rectangle */
+    background-color: #1976d2; /* Change this to your desired selected background color */
+    color: #fff; /* Change text color for selected state */
+  }
+  

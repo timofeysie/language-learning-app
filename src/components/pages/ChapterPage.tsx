@@ -13,6 +13,7 @@ import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import ViewQuiltIcon from "@mui/icons-material/ViewQuilt";
 import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
+import ExerciseComponent from "../../features/Exercises/ExerciseComponent";
 import "./ChapterPage.css";
 
 const ChapterPage: React.FC = () => {
@@ -148,7 +149,7 @@ const ChapterPage: React.FC = () => {
                         {tabValue === 3 && (
                             <PatternComponent patterns={chapterData.patterns} />
                         )}
-                        {tabValue === 4 && <div>Exercises Content</div>}
+                        {tabValue === 4 && <ExerciseComponent />}
                     </div>
                 </div>
             )}

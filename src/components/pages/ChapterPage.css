@@ -7,3 +7,8 @@
         margin-left: 0;
     }
 }
+
+.credit {
+    position: absolute;
+    bottom: 0;
+}
