@@ -52,7 +52,7 @@ const ChapterPage: React.FC = () => {
     }, [filename, chapterMapping]);
 
     const theme = useTheme();
-    const isMobile = useMediaQuery(theme.breakpoints.down("sm")); // Check for mobile view
+    const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
     const [tabValue, setTabValue] = useState(1);
 
@@ -70,27 +70,31 @@ const ChapterPage: React.FC = () => {
         );
     }
 
+    const tabLabelStyle = {
+        minWidth: "20%",
+    };
+
     return (
-        <div>
+        <div className="chapter-page">
             {isMobile ? (
-                <Tabs
+                <Tabs 
                     value={tabValue}
                     onChange={handleTabChange}
                     aria-label="icon tabs example"
                 >
-                    <Tab
+                    <Tab sx={tabLabelStyle}
                         icon={<MeetingRoomIcon />}
                         component={Link}
                         to="/"
                         aria-label="home"
                     />
-                    <Tab icon={<QuestionAnswerIcon />} aria-label="dialog" />
-                    <Tab
+                    <Tab sx={tabLabelStyle} icon={<QuestionAnswerIcon />} aria-label="dialog" />
+                    <Tab sx={tabLabelStyle}
                         icon={<FormatListBulletedIcon />}
                         aria-label="vocabulary"
                     />
-                    <Tab icon={<ViewQuiltIcon />} aria-label="pattern" />
-                    <Tab icon={<FitnessCenterIcon />} aria-label="exercises" />
+                    <Tab sx={tabLabelStyle} icon={<ViewQuiltIcon />} aria-label="pattern" />
+                    <Tab sx={tabLabelStyle} icon={<FitnessCenterIcon />} aria-label="exercises" />
                 </Tabs>
             ) : (
                 <div style={{ display: "flex" }}>
@@ -154,7 +158,7 @@ const ChapterPage: React.FC = () => {
                 </div>
             )}
             {isMobile && (
-                <>
+                <div className="desktop-layout">
                     {tabValue === 0 && <Link to="/">Home Page Content</Link>}
                     {tabValue === 1 && (
                         <DialogComponent dialog={chapterData.dialog} />
@@ -168,7 +172,7 @@ const ChapterPage: React.FC = () => {
                         <PatternComponent patterns={chapterData.patterns} />
                     )}
                     {tabValue === 4 && <div>Exercises Content</div>}
-                </>
+                </div>
             )}
         </div>
     );

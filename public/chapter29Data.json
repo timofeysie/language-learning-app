@@ -1,12 +1,7 @@
 {
-    "unid": "29",
-    "encoding": "utf-8",
-    "nativeLanguageTitle": "En",
-    "targetLanguageTitle": "Ko",
-    "nativeLanguageEncoding": "",
-    "targetLanguageEncoding": "euc-kr",
+    "id": "29",
+    "categoryMappingId": 0,
     "chapter": "29",
-    "dialogue": "Real-Life Korean Conversations: Intermediate",
     "titleTarget": "저기, 지하철 표 사려면 어떻게 해야 되죠?",
     "titleNative": "Excuse me, what should I do to buy subway tickets?",
     "dialog": [
@@ -427,10 +422,12 @@
             "exampleSentenceNative": "What should I do to buy subway tickets?",
             "sampleSentences": [
               {
+                "id": 0,
                 "targetText": "여기 통과하려면 어떻게 해야 되죠?",
                 "nativeText": "What should I do to pass through here?"
               },
               {
+                "id": 1,
                 "targetText": "시험에 합격하려면 어떻게 해야 되죠?",
                 "nativeText": "What should I do to pass the exam?"
               }
@@ -473,10 +470,12 @@
             "exampleSentenceNative": "Is this the right subway to Hapjeong station?",
             "sampleSentences": [
               {
+                "id": 0,
                 "targetText": "이거 명동 가는 거 맞나요?",
                 "nativeText": "Is this the right bus/subway to Myeong-dong?"
               },
               {
+                "id": 1,
                 "targetText": "이거 이렇게 작동하는 거 맞나요?",
                 "nativeText": "Is this supposed to work like this?"
               }
@@ -518,10 +517,12 @@
             "exampleSentenceNative": "Come here safely and don’t get lost in the subway.",
             "sampleSentences": [
               {
+                "id": 0,
                 "targetText": "끊지 말고 계속 통화 해.",
                 "nativeText": "Don’t hang up and keep talking on the phone."
               },
               {
+                "id": 1,
                 "targetText": "사진 그걸로 찍지 말고 이거로 찍어.",
                 "nativeText": "Don’t take pictures with that. Do it with this one."
               }

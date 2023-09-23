@@ -35,11 +35,17 @@ const ExerciseComponent: React.FC = () => {
 
     const handleStartExercise = () => {
         console.log(`Starting ${selectedExerciseType} exercise on ${selectedTab}.`);
-        handleExerciseTypeChange(selectedExerciseType);
+        const studyList = loadStudyListObjects();
+        console.log('studyList', studyList)
     };
 
+    const loadStudyListObjects = () => {
+        const studyListObjects = localStorage.getItem('studyListObjects');
+        return studyListObjects ? JSON.parse(studyListObjects) : [];
+    }
+
     return (
-        <Container maxWidth="md">
+        <Container maxWidth="md" sx={{ margin: "6px"}}>
             <Paper elevation={3} style={{ padding: "16px" }}>
                 <Grid container spacing={2}>
                     {/* Exercise content choice */}

@@ -1,12 +1,7 @@
 {
-    "unid": "27",
-    "encoding": "utf-8",
-    "nativeLanguageTitle": "En",
-    "targetLanguageTitle": "Ko",
-    "nativeLanguageEncoding": "",
-    "targetLanguageEncoding": "euc-kr",
+    "id": "27",
+    "categoryMappingId": 0,
     "chapter": "27",
-    "dialogue": "Real-Life Korean Conversations: Intermediate",
     "titleTarget": "그냥 몸이 좀 안 좋네.",
     "titleNative": "I just don’t feel well.",
     "dialog": [
@@ -269,10 +264,12 @@
             "exampleSentenceNative": "It’s getting worse and worse.",
             "sampleSentences": [
                 {
+                    "id": 0,
                     "targetText": "계속 더 멀어지네.",
                     "nativeText": "It's getting farther and farther."
                 },
                 {
+                    "id": 1,
                     "targetText": "계속 더 배고파지네.",
                     "nativeText": "I’m getting hungrier and hungrier."
                 }

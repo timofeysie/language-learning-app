@@ -1,12 +1,7 @@
 {
-    "unid": "30",
-    "encoding": "utf-8",
-    "nativeLanguageTitle": "En",
-    "targetLanguageTitle": "Ko",
-    "nativeLanguageEncoding": "",
-    "targetLanguageEncoding": "euc-kr",
+    "id": "30",
+    "categoryMappingId": 0,
     "chapter": "30",
-    "dialogue": "Real-Life Korean Conversations: Intermediate",
     "titleTarget": "저 이번에 비행기 처음 타 보는 거예요.",
     "titleNative": "This is my first time on an  airplane. ",
     "dialog": [
@@ -314,10 +309,12 @@
             "exampleSentenceNative": "This is my first time on an airplane.",
             "sampleSentences": [
                 {
+                    "id": 0,
                     "targetText": "이거 처음 먹어 보는 거예요.",
                     "nativeText": "This is my first time eating this."
                 },
                 {
+                    "id": 1,
                     "targetText": "자동차 처음 사 보는 거예요.",
                     "nativeText": "This is my first time buying a car."
                 }
@@ -361,10 +358,12 @@
             "exampleSentenceNative": "I just ended up buying something with that money.",
             "sampleSentences": [
                 {
+                    "id": 0,
                     "targetText": "여기까지 와 버렸어요.",
                     "nativeText": "I ended up coming all the way here."
                 },
                 {
+                    "id": 1,
                     "targetText": "치킨을 제 동생이 다 먹어 버렸어요.",
                     "nativeText": "My brother just ate all of the chicken."
                 }
@@ -400,10 +399,12 @@
             "exampleSentenceNative": "Actually, when you are in the airplane, there’s nothing special.",
             "sampleSentences": [
                 {
+                    "id": 0,
                     "targetText": "막상 올라가 보면 별 거 없어.",
                     "nativeText": "Actually, if you go up there, there’s nothing special."
                 },
                 {
+                    "id": 1,
                     "targetText": "막상 먹어 보면 별 거 없어.",
                     "nativeText": "Actually, when you eat it, it’s nothing special."
                 }

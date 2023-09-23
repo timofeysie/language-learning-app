@@ -1,14 +1,9 @@
 {
-    "unid": "26",
-    "encoding": "utf-8",
-    "nativeLanguageTitle": "En",
-    "targetLanguageTitle": "Ko",
-    "nativeLanguageEncoding": "",
-    "targetLanguageEncoding": "euc-kr",
+    "id": "26",
+    "categoryMappingId": 0,
     "chapter": "26",
-    "dialogue": "Real-Life Korean Conversations: Intermediate",
     "titleTarget": "주사 놓을게요.",
-    "titleNative": "I’ll give you a shot.",
+    "titleNative": "I'll give you a shot.",
     "dialog": [
         {
             "index": 0,
@@ -269,10 +264,12 @@
             "exampleSentenceNative": "I stayed outside for a long time and I think I've come down with a bad cold.",
             "sampleSentences": [
                 {
+                    "id": 0,
                     "targetText": "너무 오래 달렸더니 어지러워요.",
                     "nativeText": "I ran for a long time and now I'm dizzy."
                 },
                 {
+                    "id": 1,
                     "targetText": "오늘 아침에 일찍 일어났더니 너무 졸려요.",
                     "nativeText": "I woke up early this morning and as a result, I am so sleepy."
                 }

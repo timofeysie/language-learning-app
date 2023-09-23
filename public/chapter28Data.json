@@ -1,12 +1,7 @@
 {
-    "unid": "28",
-    "encoding": "UTF-8",
-    "nativeLanguageTitle": "어디로 모실까요?",
-    "targetLanguageTitle": "Where to?",
-    "nativeLanguageEncoding": "UTF-8",
-    "targetLanguageEncoding": "UTF-8",
+    "id": "28",
+    "categoryMappingId": 0,
     "chapter": "28",
-    "dialogue": "Taxi",
     "titleTarget": "어디로 모실까요?",
     "titleNative": "Where to?",
     "dialog": [
@@ -272,10 +267,12 @@
             "exampleSentenceNative": "It’s getting worse and worse.",
             "sampleSentences": [
                 {
+                    "id": 0,
                     "targetText": "계속 더 멀어지네.",
                     "nativeText": "It's getting farther and farther."
                 },
                 {
+                    "id": 1,
                     "targetText": "계속 더 배고파지네.",
                     "nativeText": "I’m getting hungrier and hungrier."
                 }
@@ -317,10 +314,12 @@
             "exampleSentenceNative": "I can’t skip classes today.",
             "sampleSentences": [
                 {
+                    "id": 0,
                     "targetText": "나 이거 다 먹으면 안 돼.",
                     "nativeText": "I can’t eat them all."
                 },
                 {
+                    "id": 1,
                     "targetText": "나 오늘 놀면 안 돼.",
                     "nativeText": "I shouldn’t just play today."
                 }
@@ -356,10 +355,12 @@
             "exampleSentenceNative": "It looks like you’re about to faint.",
             "sampleSentences": [
                 {
+                    "id": 0,
                     "targetText": "금방 시작할 것 같아.",
                     "nativeText": "It looks like it’s about to start."
                 },
                 {
+                    "id": 1,
                     "targetText": "금방 도착할 것 같아.",
                     "nativeText": "It looks like he’s about to arrive."
                 }

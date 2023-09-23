@@ -11,4 +11,17 @@
 .credit {
     position: absolute;
     bottom: 0;
+    font-size: xx-small;
+    margin: 10%;
+}
+
+.chapter-page {
+    display: flex;
+    flex-direction: column;
+}
+
+.chapter-page .desktop-layout {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
 }

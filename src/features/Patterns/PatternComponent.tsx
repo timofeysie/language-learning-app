@@ -2,7 +2,6 @@ import React from "react";
 import { Chip, Stack, Typography } from "@mui/material";
 import { Pattern } from "../../types/PatternTypes";
 import SampleSentencesComponent from "./SampleSentencesComponent";
-import ExercisesComponent from "../Exercises/ExerciseComponent";
 import AppliedPatternComponent from "../AppliedPatterns/AppliedPatternComponent";
 import "./PatternComponent.css";
 
@@ -51,9 +50,6 @@ const PatternComponent: React.FC<PatternComponentProps> = ({ patterns }) => {
                         <SampleSentencesComponent
                             sampleSentences={pattern.sampleSentences}
                         />
-                        {pattern?.exercises && (
-                            <ExercisesComponent exercises={pattern.exercises} />
-                        )}
                         <Typography variant="h3" gutterBottom mt={3}>
                             Applied Patterns
                         </Typography>

@@ -45,7 +45,7 @@ my-language-learning-app/
 
 ```js
 {
-    unid: <unique-id>,
+    id: <unique-id>,
     encoding: "utf-8",
     nativeLanguageTitle: "En",
     targetLanguageTitle: "Ko",

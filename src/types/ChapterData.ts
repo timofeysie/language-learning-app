@@ -3,7 +3,8 @@ import { WordOrPhrase } from "./WordOrPhraseTypes";
 import { Pattern } from "./PatternTypes";
 
 export type ChapterData = {
-    unid: string;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    id: any;
     encoding: string;
     nativeLanguageTitle: string;
     targetLanguageTitle: string;
