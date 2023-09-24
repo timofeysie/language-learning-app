@@ -9,7 +9,6 @@ import {
 } from "@mui/material";
 import {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    Create as CreateIcon,
     ChromeReaderMode as ReadingIcon,
     AutoStories as WritingIcon,
     RecordVoiceOver as SpeakingIcon,
