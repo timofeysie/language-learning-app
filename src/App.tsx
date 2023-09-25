@@ -34,7 +34,7 @@ function App() {
                         <Routes>
                             <Route path="/" element={<Home />} />
                             <Route
-                                path="/chapter/:filename"
+                                path="/chapter/:filename/:book"
                                 element={<ChapterPage />}
                             />
                         </Routes>

@@ -59,7 +59,7 @@ const Home: React.FC = () => {
             </Typography>
             {chapterMapping.map((chapter) => (
                 <Typography key={chapter.title} variant="body1">
-                    <Link to={`/chapter/${chapter.link}`}>{chapter.title}</Link>
+                    <Link to={`/chapter/${chapter.link}/${categoryMapping[0].id}`}>{chapter.title}</Link>
                 </Typography>
             ))}
             <div className="credit">

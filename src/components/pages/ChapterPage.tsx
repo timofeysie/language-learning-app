@@ -18,7 +18,6 @@ import "./ChapterPage.css";
 
 const ChapterPage: React.FC = () => {
     const { filename } = useParams();
-
     const [chapterData, setChapterData] = useState<ChapterData | null>(null);
 
     useEffect(() => {
@@ -77,7 +76,7 @@ const ChapterPage: React.FC = () => {
     return (
         <div className="chapter-page">
             {isMobile ? (
-                <Tabs 
+                <Tabs className="top"
                     value={tabValue}
                     onChange={handleTabChange}
                     aria-label="icon tabs example"
@@ -153,7 +152,7 @@ const ChapterPage: React.FC = () => {
                         {tabValue === 3 && (
                             <PatternComponent patterns={chapterData.patterns} />
                         )}
-                        {tabValue === 4 && <ExerciseComponent />}
+                        {tabValue === 4 && <ExerciseComponent chapterId={chapterData.id} />}
                     </div>
                 </div>
             )}
@@ -171,7 +170,7 @@ const ChapterPage: React.FC = () => {
                     {tabValue === 3 && (
                         <PatternComponent patterns={chapterData.patterns} />
                     )}
-                    {tabValue === 4 && <div>Exercises Content</div>}
+                    {tabValue === 4 && <ExerciseComponent chapterId={chapterData.id} />}
                 </div>
             )}
         </div>

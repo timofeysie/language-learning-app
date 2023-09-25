@@ -25,3 +25,8 @@
     flex-direction: row;
     align-items: flex-start;
 }
+
+.top {
+    position: absolute;
+    top: 0;
+}

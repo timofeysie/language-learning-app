@@ -1,0 +1,24 @@
+.dialog-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.dialog-item {
+    width: 100%;
+    margin-bottom: 16px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.speaker-label {
+    flex: 0 0 25%;
+    text-align: left;
+}
+
+.speech {
+    width: 100%;
+    flex: 0 0 75%;
+    text-align: left;
+    margin-left: 0.5rem;
+}
