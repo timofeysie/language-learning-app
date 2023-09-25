@@ -99,7 +99,25 @@ const ExerciseComponent: React.FC<ExerciseComponentProps> = ({ chapterId }) => {
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const handleUpdate = (updatedStudyObject: StudyListType) => {
-        // setStudyObject(updatedStudyObject);
+        console.log("updatedStudyObject", updatedStudyObject);
+        const storageKey =
+            params.book +
+            "-" +
+            updatedStudyObject.chapterId +
+            "-" +
+            updatedStudyObject.contentType +
+            "-" +
+            updatedStudyObject.contentId;
+        try {
+            const serializedUpdatedStudyObject =
+                JSON.stringify(updatedStudyObject);
+            localStorage.setItem(storageKey, serializedUpdatedStudyObject);
+        } catch (error) {
+            console.error(
+                `Error updating local storage for ${storageKey}:`,
+                error
+            );
+        }
     };
 
     const handleNext = () => {
