@@ -97,7 +97,6 @@ const ExerciseComponent: React.FC<ExerciseComponentProps> = ({ chapterId }) => {
         return objects;
     };
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const handleUpdate = (updatedStudyObject: StudyListType) => {
         console.log("updatedStudyObject", updatedStudyObject);
         const storageKey =
@@ -123,6 +122,10 @@ const ExerciseComponent: React.FC<ExerciseComponentProps> = ({ chapterId }) => {
     const handleNext = () => {
         if (studyList) {
             studyObjectIndex.current = studyObjectIndex.current + 1;
+            if (studyObjectIndex.current == studyList.length) {
+                // all words complete, start over
+                studyObjectIndex.current = 0;
+            }
             setStudyObject(studyList[studyObjectIndex.current]);
         }
     };
