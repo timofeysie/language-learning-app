@@ -1,11 +1,13 @@
+import { StudyRecord } from "./StudyRecord";
+
 export type StudyListType = {
     chapterId: number;
     contentId: number;
     contentType: string;
-    reading: boolean;
-    writing: boolean;
-    speaking: boolean;
-    listening: boolean;
+    reading: StudyRecord;
+    writing: StudyRecord;
+    speaking: StudyRecord;
+    listening: StudyRecord;
     native: string;
     target: string;
 };

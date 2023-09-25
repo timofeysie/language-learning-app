@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Typography } from "@mui/material";
-import chapterMapping, { bookTitle } from "../data/chapterMapping"; // Import the modified chapter mapping
+import chapterMapping, { bookTitle } from "../data/chapterMapping";
 import "./ChapterPage.css";
 import { ChapterData } from "../../types/ChapterData";
 import { generateStudyListObjects } from "../../utils/generateStudyListObjects";
+import { fetchData } from "../../utils/fetchChapter";
+import categoryMapping from "../data/categoryMapping";
 
 const Home: React.FC = () => {
     const studyListObjectsExist = (): boolean => {
@@ -12,25 +14,43 @@ const Home: React.FC = () => {
         return Object.keys(localStorage).some((key) => key.startsWith("0-"));
     };
 
+    useEffect(() => {
+        if (!studyListObjectsExist()) {
+            console.log("!studyListObjectsExist, creating new list objects");
+            fetchChapterData();
+        } else {
+            console.log("studyListObjectsExist");
+        }
+    }, []);
+
+    const fetchChapterData = async () => {
+      try {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        chapterMapping.map(async (chapter: any) => {
+          const chapterData = await fetchData(chapter.file);
+          if (chapterData) {
+            initializeStudyListObjects(chapterData);
+          }
+          return chapterData;
+        });
+    
+      } catch (error) {
+        console.error('Error fetching chapter data:', error);
+      }
+    };
+    
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const initializeStudyListObjects = (data: ChapterData) => {
         const studyList = generateStudyListObjects(data);
         studyList.forEach((studyObj) => {
+            console.log("studyobj", studyObj);
             localStorage.setItem(
-                `${studyObj.chapterId}-${studyObj.contentType}-${studyObj.contentId}`,
+                `${categoryMapping[0].id}-${studyObj.chapterId}-${studyObj.contentType}-${studyObj.contentId}`,
                 JSON.stringify(studyObj)
             );
         });
     };
-
-    if (!studyListObjectsExist()) {
-      console.log('!studyListObjectsExist')
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      chapterMapping.map((chapter: any) => {
-        initializeStudyListObjects(chapter);
-      })
-    } else {
-      console.log('studyListObjectsExist', studyListObjectsExist)
-    }
 
     return (
         <div>

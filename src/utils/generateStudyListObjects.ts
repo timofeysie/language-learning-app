@@ -1,8 +1,17 @@
 import { ChapterData } from "../types/ChapterData";
 import { StudyListType } from "../types/StudyListType";
+import { StudyRecord } from "../types/StudyRecord";
 
 export function generateStudyListObjects(chapterData: ChapterData): StudyListType[] {
     const studyList: StudyListType[] = [];
+
+    console.log('generateStudyListObjects', generateStudyListObjects)
+
+    const defaultStudyRecord: StudyRecord = {
+        onList: true,
+        count: 0,
+        lastDate: new Date().getTime(),
+    }
 
     // Create study list objects for dialog
     if (chapterData.dialog) {
@@ -11,10 +20,10 @@ export function generateStudyListObjects(chapterData: ChapterData): StudyListTyp
                 chapterId: chapterData.id,
                 contentId: index,
                 contentType: "dialog",
-                reading: true,
-                writing: true,
-                speaking: true,
-                listening: true,
+                reading: defaultStudyRecord,
+                writing: defaultStudyRecord,
+                speaking: defaultStudyRecord,
+                listening: defaultStudyRecord,
                 target: dialog.speechTarget,
                 native: dialog.speechNative,
             };
@@ -29,10 +38,10 @@ export function generateStudyListObjects(chapterData: ChapterData): StudyListTyp
                 chapterId: chapterData.id,
                 contentId: index,
                 contentType: "vocabulary",
-                reading: true,
-                writing: true,
-                speaking: true,
-                listening: true,
+                reading: defaultStudyRecord,
+                writing: defaultStudyRecord,
+                speaking: defaultStudyRecord,
+                listening: defaultStudyRecord,
                 target: vocab.targetLanguageText,
                 native: vocab.nativeLanguageText,
             };
@@ -48,10 +57,10 @@ export function generateStudyListObjects(chapterData: ChapterData): StudyListTyp
                     chapterId: chapterData.id,
                     contentId: index,
                     contentType: "patterns-exampleSentence",
-                    reading: true,
-                    writing: true,
-                    speaking: true,
-                    listening: true,
+                    reading: defaultStudyRecord,
+                    writing: defaultStudyRecord,
+                    speaking: defaultStudyRecord,
+                    listening: defaultStudyRecord,
                     target: pattern.exampleSentenceTarget,
                     native: pattern.exampleSentenceNative,
                 };
@@ -65,10 +74,10 @@ export function generateStudyListObjects(chapterData: ChapterData): StudyListTyp
                         chapterId: chapterData.id,
                         contentId: sentenceIndex,
                         contentType: "patterns-sampleSentences",
-                        reading: true,
-                        writing: true,
-                        speaking: true,
-                        listening: true,
+                        reading: defaultStudyRecord,
+                        writing: defaultStudyRecord,
+                        speaking: defaultStudyRecord,
+                        listening: defaultStudyRecord,
                         target: sentence.targetText,
                         native: sentence.nativeText,
                     };
@@ -83,10 +92,10 @@ export function generateStudyListObjects(chapterData: ChapterData): StudyListTyp
                         chapterId: chapterData.id,
                         contentId: exerciseIndex,
                         contentType: "patterns-exercises",
-                        reading: true,
-                        writing: true,
-                        speaking: true,
-                        listening: true,
+                        reading: defaultStudyRecord,
+                        writing: defaultStudyRecord,
+                        speaking: defaultStudyRecord,
+                        listening: defaultStudyRecord,
                         target: exercise.answerKey,
                         native: exercise.exercise,
                     };
@@ -101,10 +110,10 @@ export function generateStudyListObjects(chapterData: ChapterData): StudyListTyp
                         chapterId: chapterData.id,
                         contentId: appliedPatternIndex,
                         contentType: "patterns-appliedPatterns",
-                        reading: true,
-                        writing: true,
-                        speaking: true,
-                        listening: true,
+                        reading: defaultStudyRecord,
+                        writing: defaultStudyRecord,
+                        speaking: defaultStudyRecord,
+                        listening: defaultStudyRecord,
                         target: appliedPattern.patternTargetText,
                         native: appliedPattern.patternNativeText,
                     };
