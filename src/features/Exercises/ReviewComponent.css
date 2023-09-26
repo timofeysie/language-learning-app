@@ -22,3 +22,13 @@
     text-align: left;
     margin-left: 0.5rem;
 }
+
+.scoring-icons {
+    display: flex;
+    justify-content: flex-end;
+    margin-left: auto;
+}
+
+.grow {
+    flex-grow: 100;
+}

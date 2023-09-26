@@ -19,4 +19,9 @@
     background-color: #1976d2; /* Change this to your desired selected background color */
     color: #fff; /* Change text color for selected state */
   }
+
+.exercise-card {
+    width: 100%;
+    padding: "16px"
+}
   

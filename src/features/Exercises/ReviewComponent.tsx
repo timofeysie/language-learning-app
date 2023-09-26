@@ -14,11 +14,11 @@ import AutoStoriesIcon from "@mui/icons-material/AutoStories";
 import RecordVoiceOverIcon from "@mui/icons-material/RecordVoiceOver";
 import HearingIcon from "@mui/icons-material/Hearing";
 import InfoIcon from "@mui/icons-material/Info";
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { StudyListType } from "../../types/StudyListType";
 import { StudyRecord } from "../../types/StudyRecord";
 import { TestType } from "../../types/TestType";
-
+import "./ReviewComponent.css";
 
 type ReviewComponentProps = {
     studyObject: StudyListType | undefined;
@@ -77,7 +77,8 @@ const ReviewComponent: React.FC<ReviewComponentProps> = ({
             >
                 <AccordionSummary>
                     <Typography>
-                        {type === TestType.READING
+                        {type === TestType.READING ||
+                        type === TestType.LISTENING
                             ? studyObject.target
                             : studyObject.native}
                     </Typography>
@@ -90,9 +91,13 @@ const ReviewComponent: React.FC<ReviewComponentProps> = ({
                                     ? studyObject.native
                                     : studyObject.target}
                             </Typography>
-                            <div>
+                        </div>
+                    )}
+                </AccordionDetails>
+            </Accordion>
+            <div className="scoring-icons">
                                 {questionMode ? (
-                                    <div>
+                                    <div className="grow">
                                         <IconButton
                                             onClick={() =>
                                                 handleIconClick("check")
@@ -154,17 +159,13 @@ const ReviewComponent: React.FC<ReviewComponentProps> = ({
                                             <InfoIcon />
                                         </IconButton>
                                         <IconButton>
-                                            <ArrowForwardIosIcon onClick={() =>
-                                                handleNext()
-                                            } />
+                                            <ArrowForwardIosIcon
+                                                onClick={() => handleNext()}
+                                            />
                                         </IconButton>
                                     </div>
                                 )}
                             </div>
-                        </div>
-                        )}
-                </AccordionDetails>
-            </Accordion>
         </div>
     );
 };

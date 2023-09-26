@@ -132,11 +132,11 @@ const ExerciseComponent: React.FC<ExerciseComponentProps> = ({ chapterId }) => {
 
     return (
         <Container maxWidth="md" sx={{ margin: "6px" }}>
-            <Paper elevation={3} style={{ padding: "16px" }}>
+            <Paper elevation={3} className="exercise-card">
                 {reviewMode ? (
                     <ReviewComponent
                         studyObject={studyObject}
-                        type="reading"
+                        type={selectedExerciseType}
                         onUpdate={handleUpdate}
                         onNext={handleNext}
                     />

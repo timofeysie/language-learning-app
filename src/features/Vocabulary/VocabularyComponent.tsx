@@ -22,10 +22,6 @@ const VocabularyComponent: React.FC<VocabularyComponentProps> = ({
 
     return (
         <div>
-            <Typography variant="h3" gutterBottom>
-                Vocabulary
-            </Typography>
-
             <Grid container spacing={2}>
                 {vocabulary.map((word) => (
                     <Grid item key={word.id} xs={12} sm={8} md={7} lg={6}>

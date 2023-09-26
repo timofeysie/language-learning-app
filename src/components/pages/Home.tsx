@@ -53,7 +53,7 @@ const Home: React.FC = () => {
     };
 
     return (
-        <div>
+        <div className="align-start">
             <Typography variant="h1" mb={2}>
                 {bookTitle}
             </Typography>

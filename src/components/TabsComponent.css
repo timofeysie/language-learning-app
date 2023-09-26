@@ -1,0 +1,26 @@
+/* TabsComponent.css */
+.tabs-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.tabs-container .top {
+    position: absolute;
+    top: 0;
+}
+
+.tabs-container .content {
+    margin-left: 10px;
+}
+
+@media (max-width: 600px) {
+    .tabs-container .content {
+        margin-left: 0;
+    }
+}
+
+.tabs-container .desktop-layout {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
