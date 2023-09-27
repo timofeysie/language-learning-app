@@ -21,15 +21,17 @@ import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import "./ExerciseComponent.css";
 import ReviewComponent from "./ReviewComponent";
 import { StudyListType } from "../../types/StudyListType";
+import { TestType } from "../../types/TestType";
 
 interface ExerciseComponentProps {
     chapterId: number;
 }
 
 const ExerciseComponent: React.FC<ExerciseComponentProps> = ({ chapterId }) => {
-    const [selectedTab, setSelectedTab] = useState<string>("pattern");
-    const [selectedExerciseType, setSelectedExerciseType] =
-        useState<string>("reading");
+    const [selectedTab, setSelectedTab] = useState<string>("vocabulary");
+    const [selectedExerciseType, setSelectedExerciseType] = useState<string>(
+        TestType.READING
+    );
     const [reviewMode, setReviewMode] = useState<boolean>(false);
     const [studyList, setStudyList] = useState<StudyListType[]>();
     const [studyObject, setStudyObject] = useState<StudyListType>();
@@ -45,19 +47,18 @@ const ExerciseComponent: React.FC<ExerciseComponentProps> = ({ chapterId }) => {
 
     const params = useParams();
 
-    console.log("params", params.book);
     const handleStartExercise = () => {
-        console.log(
-            `Starting ${selectedExerciseType} exercise on ${selectedTab}.`
-        );
         const newStudyList = loadStudyListObjects(
             selectedExerciseType,
             selectedTab
         );
-        console.log("studyList", studyList);
         if (newStudyList) {
-            setStudyList(newStudyList);
-            setStudyObject(newStudyList[studyObjectIndex.current]);
+            const filteredList: StudyListType[] = newStudyList.filter(
+                (item: StudyListType) =>
+                    item[selectedExerciseType as TestType]?.onList === true
+            );
+            setStudyList(filteredList);
+            setStudyObject(filteredList[studyObjectIndex.current]);
             setReviewMode(true);
         }
     };
@@ -67,15 +68,8 @@ const ExerciseComponent: React.FC<ExerciseComponentProps> = ({ chapterId }) => {
         selectedTab: string
     ) => {
         const studyListBase = `${params.book}-${chapterId}-${selectedTab}`;
-        console.log(
-            "studyListBase",
-            studyListBase,
-            "selectedExerciseType",
-            selectedExerciseType
-        );
         const studyListObjects =
             getLocalStorageObjectsWithPrefix(studyListBase) || "[]";
-        console.log("studyListObjects", studyListObjects);
         const parsedStudyListObjects = Array.isArray(studyListObjects)
             ? studyListObjects
             : JSON.parse(studyListObjects || "[]");
@@ -97,8 +91,12 @@ const ExerciseComponent: React.FC<ExerciseComponentProps> = ({ chapterId }) => {
         return objects;
     };
 
+    /**
+     * Update the local storage with new object.
+     *
+     * @param updatedStudyObject StudyListType
+     */
     const handleUpdate = (updatedStudyObject: StudyListType) => {
-        console.log("updatedStudyObject", updatedStudyObject);
         const storageKey =
             params.book +
             "-" +
@@ -111,6 +109,15 @@ const ExerciseComponent: React.FC<ExerciseComponentProps> = ({ chapterId }) => {
             const serializedUpdatedStudyObject =
                 JSON.stringify(updatedStudyObject);
             localStorage.setItem(storageKey, serializedUpdatedStudyObject);
+            if (
+                updatedStudyObject[selectedExerciseType as TestType].onList ===
+                false
+            ) {
+                const updatedStudyList = studyList?.filter(
+                    (item, index) => index !== studyObjectIndex.current
+                );
+                setStudyList(updatedStudyList);
+            }
         } catch (error) {
             console.error(
                 `Error updating local storage for ${storageKey}:`,
@@ -137,6 +144,7 @@ const ExerciseComponent: React.FC<ExerciseComponentProps> = ({ chapterId }) => {
                     <ReviewComponent
                         studyObject={studyObject}
                         type={selectedExerciseType}
+                        status={`${studyObjectIndex.current}/${studyList?.length}`}
                         onUpdate={handleUpdate}
                         onNext={handleNext}
                     />

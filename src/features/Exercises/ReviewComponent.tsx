@@ -23,6 +23,7 @@ import "./ReviewComponent.css";
 type ReviewComponentProps = {
     studyObject: StudyListType | undefined;
     type: string;
+    status: string;
     onUpdate: (updatedStudyObject: StudyListType) => void;
     onNext: () => void;
 };
@@ -30,11 +31,13 @@ type ReviewComponentProps = {
 const ReviewComponent: React.FC<ReviewComponentProps> = ({
     studyObject,
     type,
+    status,
     onUpdate,
     onNext,
 }) => {
     const [expanded, setExpanded] = useState(false);
     const [questionMode, setQuestionMode] = useState<boolean>(true);
+    const [scored, setScored] = useState<boolean>(false);
     if (!studyObject) {
         return;
     }
@@ -46,34 +49,47 @@ const ReviewComponent: React.FC<ReviewComponentProps> = ({
     const handleNext = () => {
         setQuestionMode(true);
         setExpanded(false);
+        setScored(false);
         onNext();
     };
 
     const handleIconClick = (action: "check" | "close") => {
-        setQuestionMode(false);
-        // Update the study object based on the action (check or close)
-        const updatedStudyObject = { ...studyObject };
+        if (!scored) {
+            setQuestionMode(false);
+            // Update the study object based on the action (check or close)
+            const updatedStudyObject = { ...studyObject };
 
-        if (action === "check") {
-            (
-                updatedStudyObject[type as keyof StudyListType] as StudyRecord
-            ).onList = false;
-        } else if (action === "close") {
-            (
-                updatedStudyObject[type as keyof StudyListType] as StudyRecord
-            ).count += 1;
+            if (action === "check") {
+                (
+                    updatedStudyObject[
+                        type as keyof StudyListType
+                    ] as StudyRecord
+                ).onList = false;
+                setScored(true);
+            } else if (action === "close") {
+                (
+                    updatedStudyObject[
+                        type as keyof StudyListType
+                    ] as StudyRecord
+                ).count += 1;
+                setScored(true);
+            }
+
+            // Call the onUpdate callback to update the parent component's state
+            onUpdate(updatedStudyObject);
         }
+    };
 
-        // Call the onUpdate callback to update the parent component's state
-        onUpdate(updatedStudyObject);
+    const iconStyle = {
+        padding: "2px",
     };
 
     return (
-        <div className="dialog-container">
+        <div className="review-container">
             <Accordion
                 expanded={expanded}
                 onChange={handleAccordionChange}
-                className="dialog-item"
+                className="review-item"
             >
                 <AccordionSummary>
                     <Typography>
@@ -85,8 +101,8 @@ const ReviewComponent: React.FC<ReviewComponentProps> = ({
                 </AccordionSummary>
                 <AccordionDetails>
                     {expanded && (
-                        <div>
-                            <Typography>
+                        <div className="answer">
+                            <Typography sx={{ marginTop: "12px" }}>
                                 {type === TestType.READING
                                     ? studyObject.native
                                     : studyObject.target}
@@ -96,76 +112,66 @@ const ReviewComponent: React.FC<ReviewComponentProps> = ({
                 </AccordionDetails>
             </Accordion>
             <div className="scoring-icons">
-                                {questionMode ? (
-                                    <div className="grow">
-                                        <IconButton
-                                            onClick={() =>
-                                                handleIconClick("check")
-                                            }
-                                        >
-                                            <CheckIcon />
-                                        </IconButton>
-                                        <IconButton
-                                            onClick={() =>
-                                                handleIconClick("close")
-                                            }
-                                        >
-                                            <CloseIcon />
-                                        </IconButton>
-                                    </div>
-                                ) : (
-                                    <div>
-                                        <IconButton>
-                                            <Badge
-                                                badgeContent={
-                                                    studyObject.reading.count
-                                                }
-                                                color="secondary"
-                                            >
-                                                <AutoStoriesIcon />
-                                            </Badge>
-                                        </IconButton>
-                                        <IconButton>
-                                            <Badge
-                                                badgeContent={
-                                                    studyObject.writing.count
-                                                }
-                                                color="secondary"
-                                            >
-                                                <CreateIcon />
-                                            </Badge>
-                                        </IconButton>
-                                        <IconButton>
-                                            <Badge
-                                                badgeContent={
-                                                    studyObject.listening.count
-                                                }
-                                                color="secondary"
-                                            >
-                                                <HearingIcon />
-                                            </Badge>
-                                        </IconButton>
-                                        <IconButton>
-                                            <Badge
-                                                badgeContent={
-                                                    studyObject.speaking.count
-                                                }
-                                                color="secondary"
-                                            >
-                                                <RecordVoiceOverIcon />
-                                            </Badge>
-                                        </IconButton>
-                                        <IconButton>
-                                            <InfoIcon />
-                                        </IconButton>
-                                        <IconButton>
-                                            <ArrowForwardIosIcon
-                                                onClick={() => handleNext()}
-                                            />
-                                        </IconButton>
-                                    </div>
-                                )}
-                            </div>
+                {questionMode ? (
+                    <div className="scoring-container">
+                        <div className="left-side">{status}</div>
+                        <div className="right-side">
+                            <IconButton
+                                onClick={() => handleIconClick("check")}
+                            >
+                                <CheckIcon />
+                            </IconButton>
+                            <IconButton
+                                onClick={() => handleIconClick("close")}
+                            >
+                                <CloseIcon />
+                            </IconButton>
+                        </div>
+                    </div>
+                ) : (
+                    <div className="scoring-container">
+                        <span className="left-side">{status}</span>
+                        <IconButton sx={iconStyle}>
+                            <Badge
+                                badgeContent={studyObject.reading.count}
+                                color="secondary"
+                            >
+                                <AutoStoriesIcon />
+                            </Badge>
+                        </IconButton>
+                        <IconButton sx={iconStyle}>
+                            <Badge
+                                badgeContent={studyObject.writing.count}
+                                color="secondary"
+                            >
+                                <CreateIcon />
+                            </Badge>
+                        </IconButton>
+                        <IconButton sx={iconStyle}>
+                            <Badge
+                                badgeContent={studyObject.listening.count}
+                                color="secondary"
+                            >
+                                <HearingIcon />
+                            </Badge>
+                        </IconButton>
+                        <IconButton sx={iconStyle}>
+                            <Badge
+                                badgeContent={studyObject.speaking.count}
+                                color="secondary"
+                            >
+                                <RecordVoiceOverIcon />
+                            </Badge>
+                        </IconButton>
+                        <IconButton>
+                            <InfoIcon />
+                        </IconButton>
+                        <IconButton sx={iconStyle}>
+                            <ArrowForwardIosIcon onClick={() => handleNext()} />
+                        </IconButton>
+                    </div>
+                )}
+            </div>
         </div>
     );
 };
