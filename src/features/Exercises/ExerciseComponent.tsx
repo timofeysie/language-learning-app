@@ -49,7 +49,6 @@ const ExerciseComponent: React.FC<ExerciseComponentProps> = ({ chapterId }) => {
 
     const handleStartExercise = () => {
         const newStudyList = loadStudyListObjects(
-            selectedExerciseType,
             selectedTab
         );
         if (newStudyList) {
@@ -64,7 +63,6 @@ const ExerciseComponent: React.FC<ExerciseComponentProps> = ({ chapterId }) => {
     };
 
     const loadStudyListObjects = (
-        selectedExerciseType: string,
         selectedTab: string
     ) => {
         const studyListBase = `${params.book}-${chapterId}-${selectedTab}`;
@@ -114,7 +112,11 @@ const ExerciseComponent: React.FC<ExerciseComponentProps> = ({ chapterId }) => {
                 false
             ) {
                 const updatedStudyList = studyList?.filter(
-                    (item, index) => index !== studyObjectIndex.current
+                    (item, index) => {
+                        if (item) {
+                            return index !== studyObjectIndex.current;
+                        }
+                    }
                 );
                 setStudyList(updatedStudyList);
             }
