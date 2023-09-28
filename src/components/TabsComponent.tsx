@@ -47,9 +47,9 @@ const TabsComponent: React.FC<TabsComponentProps> = ({
     const handleTabChangeWrapper = (
         _event: React.SyntheticEvent,
         newValue: number
-      ) => {
+    ) => {
         handleTabChange(newValue);
-      };
+    };
 
     return (
         <>
@@ -150,6 +150,7 @@ const TabsComponent: React.FC<TabsComponentProps> = ({
                         {tabValue === 4 && (
                             <ExerciseComponent
                                 chapterId={parseInt(chapterData.id)}
+                                reset={false}
                             />
                         )}
                     </div>
@@ -172,6 +173,7 @@ const TabsComponent: React.FC<TabsComponentProps> = ({
                     {tabValue === 4 && (
                         <ExerciseComponent
                             chapterId={parseInt(chapterData.id)}
+                            reset={false}
                         />
                     )}
                 </div>

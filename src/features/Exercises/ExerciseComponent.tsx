@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useParams } from "react-router";
 import {
     Button,
@@ -9,12 +9,11 @@ import {
     Typography,
 } from "@mui/material";
 import {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    ChromeReaderMode as ReadingIcon,
-    AutoStories as WritingIcon,
     RecordVoiceOver as SpeakingIcon,
     Hearing as ListeningIcon,
 } from "@mui/icons-material";
+import EditIcon from "@mui/icons-material/Edit";
+import AutoStoriesIcon from "@mui/icons-material/AutoStories";
 import ViewQuiltIcon from "@mui/icons-material/ViewQuilt";
 import CollectionsBookmarkIcon from "@mui/icons-material/CollectionsBookmark";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
@@ -25,9 +24,13 @@ import { TestType } from "../../types/TestType";
 
 interface ExerciseComponentProps {
     chapterId: number;
+    reset: boolean;
 }
 
-const ExerciseComponent: React.FC<ExerciseComponentProps> = ({ chapterId }) => {
+const ExerciseComponent: React.FC<ExerciseComponentProps> = ({
+    chapterId,
+    reset,
+}) => {
     const [selectedTab, setSelectedTab] = useState<string>("vocabulary");
     const [selectedExerciseType, setSelectedExerciseType] = useState<string>(
         TestType.READING
@@ -48,9 +51,7 @@ const ExerciseComponent: React.FC<ExerciseComponentProps> = ({ chapterId }) => {
     const params = useParams();
 
     const handleStartExercise = () => {
-        const newStudyList = loadStudyListObjects(
-            selectedTab
-        );
+        const newStudyList = loadStudyListObjects(selectedTab);
         if (newStudyList) {
             const filteredList: StudyListType[] = newStudyList.filter(
                 (item: StudyListType) =>
@@ -59,12 +60,11 @@ const ExerciseComponent: React.FC<ExerciseComponentProps> = ({ chapterId }) => {
             setStudyList(filteredList);
             setStudyObject(filteredList[studyObjectIndex.current]);
             setReviewMode(true);
+            reset = false;
         }
     };
 
-    const loadStudyListObjects = (
-        selectedTab: string
-    ) => {
+    const loadStudyListObjects = (selectedTab: string) => {
         const studyListBase = `${params.book}-${chapterId}-${selectedTab}`;
         const studyListObjects =
             getLocalStorageObjectsWithPrefix(studyListBase) || "[]";
@@ -111,13 +111,11 @@ const ExerciseComponent: React.FC<ExerciseComponentProps> = ({ chapterId }) => {
                 updatedStudyObject[selectedExerciseType as TestType].onList ===
                 false
             ) {
-                const updatedStudyList = studyList?.filter(
-                    (item, index) => {
-                        if (item) {
-                            return index !== studyObjectIndex.current;
-                        }
+                const updatedStudyList = studyList?.filter((item, index) => {
+                    if (item) {
+                        return index !== studyObjectIndex.current;
                     }
-                );
+                });
                 setStudyList(updatedStudyList);
             }
         } catch (error) {
@@ -139,6 +137,38 @@ const ExerciseComponent: React.FC<ExerciseComponentProps> = ({ chapterId }) => {
         }
     };
 
+    // Load the initial state from local storage or set default values
+    useEffect(() => {
+        const storedState = localStorage.getItem("exerciseComponentState");
+        if (storedState && !reset) {
+            const parsedState = JSON.parse(storedState);
+            setSelectedTab(parsedState.selectedTab);
+            setSelectedExerciseType(parsedState.selectedExerciseType);
+            setReviewMode(parsedState.reviewMode);
+            setStudyList(parsedState.studyList);
+            setStudyObject(parsedState.studyObject);
+            studyObjectIndex.current = parsedState.studyObjectIndex;
+            handleStartExercise();
+            console.log("load stateToStore", parsedState);
+        }
+    }, []);
+
+    // Save the state to local storage whenever it changes
+    useEffect(() => {
+        const stateToStore = {
+            selectedTab,
+            selectedExerciseType,
+            reviewMode,
+            studyList,
+            studyObject,
+            studyObjectIndex: studyObjectIndex.current,
+        };
+        localStorage.setItem(
+            "exerciseComponentState",
+            JSON.stringify(stateToStore)
+        );
+    }, [selectedTab, selectedExerciseType, reviewMode, studyList, studyObject]);
+
     return (
         <Container maxWidth="md" sx={{ margin: "6px" }}>
             <Paper elevation={3} className="exercise-card">
@@ -154,6 +184,9 @@ const ExerciseComponent: React.FC<ExerciseComponentProps> = ({ chapterId }) => {
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
                             <Typography variant="h5">
+                                Category {params.book} chapter {chapterId}
+                            </Typography>
+                            <Typography variant="h6">
                                 Choose what to practice:
                             </Typography>
                             <div>
@@ -263,8 +296,8 @@ const ExerciseComponent: React.FC<ExerciseComponentProps> = ({ chapterId }) => {
 
                         {/* Excercise type */}
                         <Grid item xs={12}>
-                            <Typography variant="h5">
-                                Choose an Exercise Type:
+                            <Typography variant="h6">
+                                Choose an exercise Type:
                             </Typography>
                             <div>
                                 <IconButton
@@ -278,16 +311,7 @@ const ExerciseComponent: React.FC<ExerciseComponentProps> = ({ chapterId }) => {
                                             : "default"
                                     }
                                 >
-                                    <IconButton
-                                        style={{ borderRadius: 0 }}
-                                        color={
-                                            selectedExerciseType === "reading"
-                                                ? "primary"
-                                                : "default"
-                                        }
-                                    >
-                                        <ReadingIcon />
-                                    </IconButton>
+                                    <AutoStoriesIcon />
                                     <Typography ml={1}>Reading</Typography>
                                 </IconButton>
                                 <IconButton
@@ -301,16 +325,7 @@ const ExerciseComponent: React.FC<ExerciseComponentProps> = ({ chapterId }) => {
                                             : "default"
                                     }
                                 >
-                                    <IconButton
-                                        style={{ borderRadius: 0 }}
-                                        color={
-                                            selectedExerciseType === "writing"
-                                                ? "primary"
-                                                : "default"
-                                        }
-                                    >
-                                        <WritingIcon />
-                                    </IconButton>
+                                    <EditIcon />
                                     <Typography ml={1}>Writing</Typography>
                                 </IconButton>
                                 <IconButton
@@ -323,17 +338,8 @@ const ExerciseComponent: React.FC<ExerciseComponentProps> = ({ chapterId }) => {
                                             ? "primary"
                                             : "default"
                                     }
-                                    disabled
                                 >
-                                    <IconButton
-                                        color={
-                                            selectedExerciseType === "speaking"
-                                                ? "primary"
-                                                : "default"
-                                        }
-                                    >
-                                        <SpeakingIcon />
-                                    </IconButton>
+                                    <SpeakingIcon />
                                     <Typography ml={1}>Speaking</Typography>
                                 </IconButton>
                                 <IconButton
@@ -346,24 +352,15 @@ const ExerciseComponent: React.FC<ExerciseComponentProps> = ({ chapterId }) => {
                                             ? "primary"
                                             : "default"
                                     }
-                                    disabled
                                 >
-                                    <IconButton
-                                        color={
-                                            selectedExerciseType === "listening"
-                                                ? "primary"
-                                                : "default"
-                                        }
-                                    >
-                                        <ListeningIcon />
-                                    </IconButton>
+                                    <ListeningIcon />
                                     <Typography ml={1}>Listening</Typography>
                                 </IconButton>
                             </div>
                         </Grid>
 
                         {/* Primary action button */}
-                        <Grid item xs={12}>
+                        <Grid item xs={12} m={2}>
                             <Button
                                 variant="contained"
                                 color="primary"

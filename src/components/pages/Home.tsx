@@ -7,6 +7,7 @@ import { ChapterData } from "../../types/ChapterData";
 import { generateStudyListObjects } from "../../utils/generateStudyListObjects";
 import { fetchData } from "../../utils/fetchChapter";
 import categoryMapping from "../data/categoryMapping";
+import Footer from "../../components/Footer";
 
 const Home: React.FC = () => {
     const studyListObjectsExist = (): boolean => {
@@ -55,6 +56,15 @@ const Home: React.FC = () => {
     return (
         <div className="align-start">
             <Typography variant="h1" mb={2}>
+                YALLA
+            </Typography>
+            <Typography variant="body2" mb={2}>
+                (Yet Another Language Learning App)
+            </Typography>
+            <Typography variant="h2" mb={2}>
+                Books & Categories
+            </Typography>
+            <Typography variant="h4" mb={2}>
                 {bookTitle}
             </Typography>
             {chapterMapping.map((chapter) => (
@@ -62,11 +72,7 @@ const Home: React.FC = () => {
                     <Link to={`/chapter/${chapter.link}/${categoryMapping[0].id}`}>{chapter.title}</Link>
                 </Typography>
             ))}
-            <div className="credit">
-                Some icons made from{" "}
-                <a href="https://www.onlinewebfonts.com/icon">svg icons</a> and
-                licensed by CC BY 4.0
-            </div>
+            <Footer />
         </div>
     );
 };

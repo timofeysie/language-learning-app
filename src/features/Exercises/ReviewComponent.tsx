@@ -14,6 +14,7 @@ import AutoStoriesIcon from "@mui/icons-material/AutoStories";
 import RecordVoiceOverIcon from "@mui/icons-material/RecordVoiceOver";
 import HearingIcon from "@mui/icons-material/Hearing";
 import InfoIcon from "@mui/icons-material/Info";
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { StudyListType } from "../../types/StudyListType";
 import { StudyRecord } from "../../types/StudyRecord";
@@ -80,16 +81,24 @@ const ReviewComponent: React.FC<ReviewComponentProps> = ({
         }
     };
 
+    const handleViewClick = () => {
+        setExpanded(true);
+    };
+
     const iconStyle = {
         padding: "2px",
     };
+
+    const marginStyle = {
+        margin: "8px",
+    }
 
     return (
         <div className="review-container">
             <Accordion
                 expanded={expanded}
                 onChange={handleAccordionChange}
-                className="review-item"
+                className="review-item minHeight1"
             >
                 <AccordionSummary>
                     <Typography>
@@ -111,21 +120,36 @@ const ReviewComponent: React.FC<ReviewComponentProps> = ({
                     )}
                 </AccordionDetails>
             </Accordion>
-            <div className="scoring-icons">
+            <div className="scoring-icons minHeight2">
                 {questionMode ? (
                     <div className="scoring-container">
                         <div className="left-side">{status}</div>
                         <div className="right-side">
-                            <IconButton
-                                onClick={() => handleIconClick("check")}
-                            >
-                                <CheckIcon />
-                            </IconButton>
-                            <IconButton
-                                onClick={() => handleIconClick("close")}
-                            >
-                                <CloseIcon />
-                            </IconButton>
+                            {expanded ? (
+                                <>
+                                    <IconButton
+                                        sx={marginStyle}
+                                        onClick={() => handleIconClick("check")}
+                                    >
+                                        <CheckIcon />
+                                    </IconButton>
+                                    <IconButton
+                                        sx={marginStyle}
+                                        onClick={() => handleIconClick("close")}
+                                    >
+                                        <CloseIcon />
+                                    </IconButton>
+                                </>
+                            ) : (
+                                <>
+                                    <IconButton
+                                        sx={marginStyle}
+                                        onClick={() => handleViewClick()}
+                                    >
+                                        <RemoveRedEyeIcon />
+                                    </IconButton>
+                                </>
+                            )}
                         </div>
                     </div>
                 ) : (

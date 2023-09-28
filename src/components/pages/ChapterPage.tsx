@@ -19,6 +19,7 @@ import "./ChapterPage.css";
 const ChapterPage: React.FC = () => {
     const { filename } = useParams();
     const [chapterData, setChapterData] = useState<ChapterData | null>(null);
+    const [resetExercise, setResetExcercise] = useState<boolean>(false); 
 
     useEffect(() => {
         if (filename) {
@@ -61,6 +62,7 @@ const ChapterPage: React.FC = () => {
         newValue: number
     ) => {
         setTabValue(newValue);
+        setResetExcercise(true);
     };
 
     if (!chapterData) {
@@ -163,7 +165,7 @@ const ChapterPage: React.FC = () => {
                             <PatternComponent patterns={chapterData.patterns} />
                         )}
                         {tabValue === 4 && (
-                            <ExerciseComponent chapterId={chapterData.id} />
+                            <ExerciseComponent chapterId={chapterData.id} reset={resetExercise} />
                         )}
                     </div>
                 </div>
@@ -183,7 +185,7 @@ const ChapterPage: React.FC = () => {
                         <PatternComponent patterns={chapterData.patterns} />
                     )}
                     {tabValue === 4 && (
-                        <ExerciseComponent chapterId={chapterData.id} />
+                        <ExerciseComponent chapterId={chapterData.id}  reset={resetExercise} />
                     )}
                 </div>
             )}
