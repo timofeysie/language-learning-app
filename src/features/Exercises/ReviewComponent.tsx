@@ -91,7 +91,7 @@ const ReviewComponent: React.FC<ReviewComponentProps> = ({
 
     const marginStyle = {
         margin: "8px",
-    }
+    };
 
     return (
         <div className="review-container">
@@ -190,8 +190,8 @@ const ReviewComponent: React.FC<ReviewComponentProps> = ({
                         <IconButton>
                             <InfoIcon />
                         </IconButton>
-                        <IconButton sx={iconStyle}>
-                            <ArrowForwardIosIcon onClick={() => handleNext()} />
+                        <IconButton sx={iconStyle} onClick={() => handleNext()}>
+                            <ArrowForwardIosIcon />
                         </IconButton>
                     </div>
                 )}

@@ -1,11 +1,12 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useParams } from "react-router";
 import {
+    Grid,
+    Badge,
+    Paper,
     Button,
     Container,
-    Grid,
     IconButton,
-    Paper,
     Typography,
 } from "@mui/material";
 import {
@@ -38,10 +39,13 @@ const ExerciseComponent: React.FC<ExerciseComponentProps> = ({
     const [reviewMode, setReviewMode] = useState<boolean>(false);
     const [studyList, setStudyList] = useState<StudyListType[]>();
     const [studyObject, setStudyObject] = useState<StudyListType>();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const [currentChapterStatus, setCurrentChapterStatus] = useState<any>({});
     const studyObjectIndex = useRef<number>(0);
 
     const handleContentChange = (tab: string) => {
         setSelectedTab(tab);
+        getCurrentStatus(tab);
     };
 
     const handleExerciseTypeChange = (exerciseType: string) => {
@@ -137,9 +141,32 @@ const ExerciseComponent: React.FC<ExerciseComponentProps> = ({
         }
     };
 
+    const getCurrentStatus = (tab?: string) => {
+        const type = tab ? tab : selectedTab;
+        const chapterListBase = `${params.book}-${chapterId}-${type}`;
+        const chapterListObjects =
+            getLocalStorageObjectsWithPrefix(chapterListBase) || "[]";
+        const chapterStatus = {
+            totalWords: chapterListObjects.length,
+            listeningCount: 0,
+            readingCount: 0,
+            speakingCount: 0,
+            writingCount: 0,
+        };
+        chapterListObjects.forEach((listObject: StudyListType) => {
+            listObject.reading.onList ? chapterStatus.readingCount++ : null;
+            listObject.writing.onList ? chapterStatus.writingCount++ : null;
+            listObject.listening.onList ? chapterStatus.listeningCount++ : null;
+            listObject.speaking.onList ? chapterStatus.speakingCount++ : null;
+        });
+        console.log("chapterStatus", chapterStatus);
+        setCurrentChapterStatus(chapterStatus);
+    };
+
     // Load the initial state from local storage or set default values
     useEffect(() => {
         const storedState = localStorage.getItem("exerciseComponentState");
+        getCurrentStatus();
         if (storedState && !reset) {
             const parsedState = JSON.parse(storedState);
             setSelectedTab(parsedState.selectedTab);
@@ -163,6 +190,7 @@ const ExerciseComponent: React.FC<ExerciseComponentProps> = ({
             studyObject,
             studyObjectIndex: studyObjectIndex.current,
         };
+        console.log("save stateToStore", stateToStore);
         localStorage.setItem(
             "exerciseComponentState",
             JSON.stringify(stateToStore)
@@ -311,7 +339,14 @@ const ExerciseComponent: React.FC<ExerciseComponentProps> = ({
                                             : "default"
                                     }
                                 >
-                                    <AutoStoriesIcon />
+                                    <Badge
+                                        badgeContent={
+                                            currentChapterStatus.readingCount
+                                        }
+                                        color="secondary"
+                                    >
+                                        <AutoStoriesIcon />
+                                    </Badge>
                                     <Typography ml={1}>Reading</Typography>
                                 </IconButton>
                                 <IconButton
@@ -325,7 +360,14 @@ const ExerciseComponent: React.FC<ExerciseComponentProps> = ({
                                             : "default"
                                     }
                                 >
-                                    <EditIcon />
+                                    <Badge
+                                        badgeContent={
+                                            currentChapterStatus.writingCount
+                                        }
+                                        color="secondary"
+                                    >
+                                        <EditIcon />
+                                    </Badge>
                                     <Typography ml={1}>Writing</Typography>
                                 </IconButton>
                                 <IconButton
@@ -339,7 +381,14 @@ const ExerciseComponent: React.FC<ExerciseComponentProps> = ({
                                             : "default"
                                     }
                                 >
-                                    <SpeakingIcon />
+                                    <Badge
+                                        badgeContent={
+                                            currentChapterStatus.speakingCount
+                                        }
+                                        color="secondary"
+                                    >
+                                        <SpeakingIcon />
+                                    </Badge>
                                     <Typography ml={1}>Speaking</Typography>
                                 </IconButton>
                                 <IconButton
@@ -353,7 +402,14 @@ const ExerciseComponent: React.FC<ExerciseComponentProps> = ({
                                             : "default"
                                     }
                                 >
-                                    <ListeningIcon />
+                                    <Badge
+                                        badgeContent={
+                                            currentChapterStatus.listeningCount
+                                        }
+                                        color="secondary"
+                                    >
+                                        <ListeningIcon />
+                                    </Badge>
                                     <Typography ml={1}>Listening</Typography>
                                 </IconButton>
                             </div>

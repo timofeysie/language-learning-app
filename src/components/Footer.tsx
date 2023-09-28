@@ -2,7 +2,7 @@ import React from "react";
 import { Typography, AppBar } from "@mui/material";
 
 const Footer: React.FC = () => {
-    const packageVersion = process.env.REACT_APP_VERSION || "0.0.1"; // Get the version from environment variables or use a default value
+    const packageVersion = process.env.REACT_APP_VERSION || "0.0.2"; // Get the version from environment variables or use a default value
 
     return (
         <div
