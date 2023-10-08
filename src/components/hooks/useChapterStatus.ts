@@ -31,7 +31,6 @@ export const getCurrentStatus = (
         listObject.listening.onList ? chapterStatus.listeningCount++ : null;
         listObject.speaking.onList ? chapterStatus.speakingCount++ : null;
     });
-    console.log("chapterStatus", chapterStatus);
     return chapterStatus;
 };
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, Dispatch, SetStateAction } from "react";
 import {
     Accordion,
     AccordionSummary,
@@ -27,6 +27,7 @@ type ReviewComponentProps = {
     status: string;
     onUpdate: (updatedStudyObject: StudyListType) => void;
     onNext: () => void;
+    setMissedList: Dispatch<SetStateAction<StudyListType[]>>;
 };
 
 const ReviewComponent: React.FC<ReviewComponentProps> = ({
@@ -35,10 +36,12 @@ const ReviewComponent: React.FC<ReviewComponentProps> = ({
     status,
     onUpdate,
     onNext,
+    setMissedList,
 }) => {
     const [expanded, setExpanded] = useState(false);
     const [questionMode, setQuestionMode] = useState<boolean>(true);
     const [scored, setScored] = useState<boolean>(false);
+
     if (!studyObject) {
         return;
     }
@@ -74,6 +77,8 @@ const ReviewComponent: React.FC<ReviewComponentProps> = ({
                     ] as StudyRecord
                 ).count += 1;
                 setScored(true);
+                // add to missed item list
+                setMissedList((prevMissedList) => [...prevMissedList, updatedStudyObject]);
             }
 
             // Call the onUpdate callback to update the parent component's state
@@ -94,109 +99,118 @@ const ReviewComponent: React.FC<ReviewComponentProps> = ({
     };
 
     return (
-        <div className="review-container">
-            <Accordion
-                expanded={expanded}
-                onChange={handleAccordionChange}
-                className="review-item minHeight1"
-            >
-                <AccordionSummary>
-                    <Typography>
-                        {type === TestType.READING ||
-                        type === TestType.LISTENING
-                            ? studyObject.target
-                            : studyObject.native}
-                    </Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                    {expanded && (
-                        <div className="answer">
-                            <Typography sx={{ marginTop: "12px" }}>
-                                {type === TestType.READING
-                                    ? studyObject.native
-                                    : studyObject.target}
-                            </Typography>
+        <>
+            <div className="review-container">
+                <Accordion
+                    expanded={expanded}
+                    onChange={handleAccordionChange}
+                    className="review-item minHeight1"
+                >
+                    <AccordionSummary>
+                        <Typography>
+                            {type === TestType.READING ||
+                            type === TestType.LISTENING
+                                ? studyObject.target
+                                : studyObject.native}
+                        </Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                        {expanded && (
+                            <div className="answer">
+                                <Typography sx={{ marginTop: "12px" }}>
+                                    {type === TestType.READING
+                                        ? studyObject.native
+                                        : studyObject.target}
+                                </Typography>
+                            </div>
+                        )}
+                    </AccordionDetails>
+                </Accordion>
+                <div className="scoring-icons minHeight2">
+                    {questionMode ? (
+                        <div className="scoring-container">
+                            <div className="left-side">{status}</div>
+                            <div className="right-side">
+                                {expanded ? (
+                                    <>
+                                        <IconButton
+                                            sx={marginStyle}
+                                            onClick={() =>
+                                                handleIconClick("check")
+                                            }
+                                        >
+                                            <CheckIcon />
+                                        </IconButton>
+                                        <IconButton
+                                            sx={marginStyle}
+                                            onClick={() =>
+                                                handleIconClick("close")
+                                            }
+                                        >
+                                            <CloseIcon />
+                                        </IconButton>
+                                    </>
+                                ) : (
+                                    <>
+                                        <IconButton
+                                            sx={marginStyle}
+                                            onClick={() => handleViewClick()}
+                                        >
+                                            <RemoveRedEyeIcon />
+                                        </IconButton>
+                                    </>
+                                )}
+                            </div>
+                        </div>
+                    ) : (
+                        <div className="scoring-container">
+                            <span className="left-side">{status}</span>
+                            <IconButton sx={iconStyle}>
+                                <Badge
+                                    badgeContent={studyObject.reading.count}
+                                    color="secondary"
+                                >
+                                    <AutoStoriesIcon />
+                                </Badge>
+                            </IconButton>
+                            <IconButton sx={iconStyle}>
+                                <Badge
+                                    badgeContent={studyObject.writing.count}
+                                    color="secondary"
+                                >
+                                    <CreateIcon />
+                                </Badge>
+                            </IconButton>
+                            <IconButton sx={iconStyle}>
+                                <Badge
+                                    badgeContent={studyObject.listening.count}
+                                    color="secondary"
+                                >
+                                    <HearingIcon />
+                                </Badge>
+                            </IconButton>
+                            <IconButton sx={iconStyle}>
+                                <Badge
+                                    badgeContent={studyObject.speaking.count}
+                                    color="secondary"
+                                >
+                                    <RecordVoiceOverIcon />
+                                </Badge>
+                            </IconButton>
+                            <IconButton>
+                                <InfoIcon />
+                            </IconButton>
+                            <IconButton
+                                sx={iconStyle}
+                                onClick={() => handleNext()}
+                            >
+                                <ArrowForwardIosIcon />
+                            </IconButton>
                         </div>
                     )}
-                </AccordionDetails>
-            </Accordion>
-            <div className="scoring-icons minHeight2">
-                {questionMode ? (
-                    <div className="scoring-container">
-                        <div className="left-side">{status}</div>
-                        <div className="right-side">
-                            {expanded ? (
-                                <>
-                                    <IconButton
-                                        sx={marginStyle}
-                                        onClick={() => handleIconClick("check")}
-                                    >
-                                        <CheckIcon />
-                                    </IconButton>
-                                    <IconButton
-                                        sx={marginStyle}
-                                        onClick={() => handleIconClick("close")}
-                                    >
-                                        <CloseIcon />
-                                    </IconButton>
-                                </>
-                            ) : (
-                                <>
-                                    <IconButton
-                                        sx={marginStyle}
-                                        onClick={() => handleViewClick()}
-                                    >
-                                        <RemoveRedEyeIcon />
-                                    </IconButton>
-                                </>
-                            )}
-                        </div>
-                    </div>
-                ) : (
-                    <div className="scoring-container">
-                        <span className="left-side">{status}</span>
-                        <IconButton sx={iconStyle}>
-                            <Badge
-                                badgeContent={studyObject.reading.count}
-                                color="secondary"
-                            >
-                                <AutoStoriesIcon />
-                            </Badge>
-                        </IconButton>
-                        <IconButton sx={iconStyle}>
-                            <Badge
-                                badgeContent={studyObject.writing.count}
-                                color="secondary"
-                            >
-                                <CreateIcon />
-                            </Badge>
-                        </IconButton>
-                        <IconButton sx={iconStyle}>
-                            <Badge
-                                badgeContent={studyObject.listening.count}
-                                color="secondary"
-                            >
-                                <HearingIcon />
-                            </Badge>
-                        </IconButton>
-                        <IconButton sx={iconStyle}>
-                            <Badge
-                                badgeContent={studyObject.speaking.count}
-                                color="secondary"
-                            >
-                                <RecordVoiceOverIcon />
-                            </Badge>
-                        </IconButton>
-                        <IconButton>
-                            <InfoIcon />
-                        </IconButton>
-                        <IconButton sx={iconStyle} onClick={() => handleNext()}>
-                            <ArrowForwardIosIcon />
-                        </IconButton>
-                    </div>
-                )}
+                </div>
             </div>
-        </div>
+        </>
     );
 };
 

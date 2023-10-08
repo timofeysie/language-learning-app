@@ -66,3 +66,8 @@
     min-height: 56px;
     min-width: 100%;
 }
+
+.missed_list {
+    display: flex;
+    flex-direction: row;
+}

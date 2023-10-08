@@ -17,7 +17,9 @@ import { StudyListType } from "../../types/StudyListType";
 import { TestType } from "../../types/TestType";
 import TypeBadges from "../../components/shared/TypeBadges";
 import { getLocalStorageObjectsWithPrefix } from "../../utils/localStorageUtils";
-import useChapterStatus, { getCurrentStatus } from "../../components/hooks/useChapterStatus";
+import useChapterStatus, {
+    getCurrentStatus,
+} from "../../components/hooks/useChapterStatus";
 
 interface ExerciseComponentProps {
     chapterId: number;
@@ -35,6 +37,8 @@ const ExerciseComponent: React.FC<ExerciseComponentProps> = ({
     const [reviewMode, setReviewMode] = useState<boolean>(false);
     const [studyList, setStudyList] = useState<StudyListType[]>();
     const [studyObject, setStudyObject] = useState<StudyListType>();
+    const [missedList, setMissedList] = useState<StudyListType[]>([]);
+
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const currentChapterStatus = useChapterStatus(chapterId, selectedTab);
 
@@ -127,7 +131,6 @@ const ExerciseComponent: React.FC<ExerciseComponentProps> = ({
         }
     };
 
-
     // Load the initial state from local storage or set default values
     useEffect(() => {
         const storedState = localStorage.getItem("exerciseComponentState");
@@ -172,6 +175,7 @@ const ExerciseComponent: React.FC<ExerciseComponentProps> = ({
                         }`}
                         onUpdate={handleUpdate}
                         onNext={handleNext}
+                        setMissedList={setMissedList}
                     />
                 ) : (
                     <Grid container spacing={2}>
@@ -315,6 +319,21 @@ const ExerciseComponent: React.FC<ExerciseComponentProps> = ({
                     </Grid>
                 )}
             </Paper>
+            <div>
+                <Typography variant="h5" mt={3} gutterBottom>
+                    {missedList.length > 0 && <span>Missed list</span>}
+                </Typography>
+                {missedList.map((item, index) => (
+                    <div key={index} className="missed_list">
+                        <Typography mr={2} ml={1}>
+                            {item.target}
+                        </Typography>
+                        <Typography color="textSecondary">
+                            {item.native}
+                        </Typography>
+                    </div>
+                ))}
+            </div>
         </Container>
     );
 };
