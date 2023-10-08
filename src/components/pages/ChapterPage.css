@@ -28,7 +28,8 @@
 
 .mobile-layout {
     /* leave room for the tabs at the top */
-    margin-top: 50px;
+    margin-top: 25px;
+    width: 100%;
 }
 
 .top {

@@ -40,3 +40,14 @@
 .word-container.expanded .native-text {
     width: auto;
 }
+
+.center {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-left: 4%;
+}
+
+.margin18 {
+    margin: 18px;
+}

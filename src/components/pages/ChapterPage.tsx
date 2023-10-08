@@ -159,6 +159,7 @@ const ChapterPage: React.FC = () => {
                         {tabValue === 2 && (
                             <VocabularyComponent
                                 vocabulary={chapterData.vocabulary}
+                                chapterId={chapterData.id}
                             />
                         )}
                         {tabValue === 3 && (
@@ -179,6 +180,7 @@ const ChapterPage: React.FC = () => {
                     {tabValue === 2 && (
                         <VocabularyComponent
                             vocabulary={chapterData.vocabulary}
+                            chapterId={chapterData.id}
                         />
                     )}
                     {tabValue === 3 && (

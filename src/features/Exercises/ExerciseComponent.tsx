@@ -2,19 +2,12 @@ import React, { useState, useRef, useEffect } from "react";
 import { useParams } from "react-router";
 import {
     Grid,
-    Badge,
     Paper,
     Button,
     Container,
     IconButton,
     Typography,
 } from "@mui/material";
-import {
-    RecordVoiceOver as SpeakingIcon,
-    Hearing as ListeningIcon,
-} from "@mui/icons-material";
-import EditIcon from "@mui/icons-material/Edit";
-import AutoStoriesIcon from "@mui/icons-material/AutoStories";
 import ViewQuiltIcon from "@mui/icons-material/ViewQuilt";
 import CollectionsBookmarkIcon from "@mui/icons-material/CollectionsBookmark";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
@@ -22,6 +15,9 @@ import "./ExerciseComponent.css";
 import ReviewComponent from "./ReviewComponent";
 import { StudyListType } from "../../types/StudyListType";
 import { TestType } from "../../types/TestType";
+import TypeBadges from "../../components/shared/TypeBadges";
+import { getLocalStorageObjectsWithPrefix } from "../../utils/localStorageUtils";
+import useChapterStatus, { getCurrentStatus } from "../../components/hooks/useChapterStatus";
 
 interface ExerciseComponentProps {
     chapterId: number;
@@ -40,12 +36,13 @@ const ExerciseComponent: React.FC<ExerciseComponentProps> = ({
     const [studyList, setStudyList] = useState<StudyListType[]>();
     const [studyObject, setStudyObject] = useState<StudyListType>();
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const [currentChapterStatus, setCurrentChapterStatus] = useState<any>({});
+    const currentChapterStatus = useChapterStatus(chapterId, selectedTab);
+
     const studyObjectIndex = useRef<number>(0);
 
     const handleContentChange = (tab: string) => {
         setSelectedTab(tab);
-        getCurrentStatus(tab);
+        getCurrentStatus(chapterId, tab, params);
     };
 
     const handleExerciseTypeChange = (exerciseType: string) => {
@@ -78,21 +75,6 @@ const ExerciseComponent: React.FC<ExerciseComponentProps> = ({
         return parsedStudyListObjects || [];
     };
 
-    const getLocalStorageObjectsWithPrefix = (prefix: string) => {
-        const objects = [];
-        for (let i = 0; i < localStorage.length; i++) {
-            const key = localStorage.key(i);
-            if (key && key.startsWith(prefix)) {
-                const item = localStorage.getItem(key);
-                if (item) {
-                    const object = JSON.parse(item);
-                    objects.push(object);
-                }
-            }
-        }
-        return objects;
-    };
-
     /**
      * Update the local storage with new object.
      *
@@ -115,6 +97,10 @@ const ExerciseComponent: React.FC<ExerciseComponentProps> = ({
                 updatedStudyObject[selectedExerciseType as TestType].onList ===
                 false
             ) {
+                // what was this for?
+                // studyListObjects.splice(studyObjectIndex.current, 1);
+                // setStudyList(updatedStudyList);
+
                 const updatedStudyList = studyList?.filter((item, index) => {
                     if (item) {
                         return index !== studyObjectIndex.current;
@@ -141,32 +127,10 @@ const ExerciseComponent: React.FC<ExerciseComponentProps> = ({
         }
     };
 
-    const getCurrentStatus = (tab?: string) => {
-        const type = tab ? tab : selectedTab;
-        const chapterListBase = `${params.book}-${chapterId}-${type}`;
-        const chapterListObjects =
-            getLocalStorageObjectsWithPrefix(chapterListBase) || "[]";
-        const chapterStatus = {
-            totalWords: chapterListObjects.length,
-            listeningCount: 0,
-            readingCount: 0,
-            speakingCount: 0,
-            writingCount: 0,
-        };
-        chapterListObjects.forEach((listObject: StudyListType) => {
-            listObject.reading.onList ? chapterStatus.readingCount++ : null;
-            listObject.writing.onList ? chapterStatus.writingCount++ : null;
-            listObject.listening.onList ? chapterStatus.listeningCount++ : null;
-            listObject.speaking.onList ? chapterStatus.speakingCount++ : null;
-        });
-        console.log("chapterStatus", chapterStatus);
-        setCurrentChapterStatus(chapterStatus);
-    };
 
     // Load the initial state from local storage or set default values
     useEffect(() => {
         const storedState = localStorage.getItem("exerciseComponentState");
-        getCurrentStatus();
         if (storedState && !reset) {
             const parsedState = JSON.parse(storedState);
             setSelectedTab(parsedState.selectedTab);
@@ -178,7 +142,7 @@ const ExerciseComponent: React.FC<ExerciseComponentProps> = ({
             handleStartExercise();
             console.log("load stateToStore", parsedState);
         }
-    }, []);
+    }, [selectedTab, chapterId, params, reset]);
 
     // Save the state to local storage whenever it changes
     useEffect(() => {
@@ -190,7 +154,6 @@ const ExerciseComponent: React.FC<ExerciseComponentProps> = ({
             studyObject,
             studyObjectIndex: studyObjectIndex.current,
         };
-        console.log("save stateToStore", stateToStore);
         localStorage.setItem(
             "exerciseComponentState",
             JSON.stringify(stateToStore)
@@ -204,7 +167,9 @@ const ExerciseComponent: React.FC<ExerciseComponentProps> = ({
                     <ReviewComponent
                         studyObject={studyObject}
                         type={selectedExerciseType}
-                        status={`${studyObjectIndex.current}/${studyList?.length}`}
+                        status={`${studyObjectIndex.current + 1}/${
+                            studyList?.length
+                        }`}
                         onUpdate={handleUpdate}
                         onNext={handleNext}
                     />
@@ -327,92 +292,14 @@ const ExerciseComponent: React.FC<ExerciseComponentProps> = ({
                             <Typography variant="h6">
                                 Choose an exercise Type:
                             </Typography>
-                            <div>
-                                <IconButton
-                                    style={{ borderRadius: 0 }}
-                                    onClick={() =>
-                                        handleExerciseTypeChange("reading")
-                                    }
-                                    color={
-                                        selectedExerciseType === "reading"
-                                            ? "primary"
-                                            : "default"
-                                    }
-                                >
-                                    <Badge
-                                        badgeContent={
-                                            currentChapterStatus.readingCount
-                                        }
-                                        color="secondary"
-                                    >
-                                        <AutoStoriesIcon />
-                                    </Badge>
-                                    <Typography ml={1}>Reading</Typography>
-                                </IconButton>
-                                <IconButton
-                                    style={{ borderRadius: 0 }}
-                                    onClick={() =>
-                                        handleExerciseTypeChange("writing")
-                                    }
-                                    color={
-                                        selectedExerciseType === "writing"
-                                            ? "primary"
-                                            : "default"
-                                    }
-                                >
-                                    <Badge
-                                        badgeContent={
-                                            currentChapterStatus.writingCount
-                                        }
-                                        color="secondary"
-                                    >
-                                        <EditIcon />
-                                    </Badge>
-                                    <Typography ml={1}>Writing</Typography>
-                                </IconButton>
-                                <IconButton
-                                    style={{ borderRadius: 0 }}
-                                    onClick={() =>
-                                        handleExerciseTypeChange("speaking")
-                                    }
-                                    color={
-                                        selectedExerciseType === "speaking"
-                                            ? "primary"
-                                            : "default"
-                                    }
-                                >
-                                    <Badge
-                                        badgeContent={
-                                            currentChapterStatus.speakingCount
-                                        }
-                                        color="secondary"
-                                    >
-                                        <SpeakingIcon />
-                                    </Badge>
-                                    <Typography ml={1}>Speaking</Typography>
-                                </IconButton>
-                                <IconButton
-                                    style={{ borderRadius: 0 }}
-                                    onClick={() =>
-                                        handleExerciseTypeChange("listening")
-                                    }
-                                    color={
-                                        selectedExerciseType === "listening"
-                                            ? "primary"
-                                            : "default"
-                                    }
-                                >
-                                    <Badge
-                                        badgeContent={
-                                            currentChapterStatus.listeningCount
-                                        }
-                                        color="secondary"
-                                    >
-                                        <ListeningIcon />
-                                    </Badge>
-                                    <Typography ml={1}>Listening</Typography>
-                                </IconButton>
-                            </div>
+                            <TypeBadges
+                                selectedExerciseType={selectedExerciseType}
+                                currentChapterStatus={currentChapterStatus}
+                                handleExerciseTypeChange={
+                                    handleExerciseTypeChange
+                                }
+                                showLabels={true}
+                            />
                         </Grid>
 
                         {/* Primary action button */}
